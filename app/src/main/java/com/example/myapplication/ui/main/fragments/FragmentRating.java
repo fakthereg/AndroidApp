@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.main.fragments;
 
-import android.app.Application;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;

@@ -4,43 +4,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.main.fragments.FragmentRegisterOne;
 
 import java.util.HashMap;
+import java.util.zip.Inflater;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    private static final HashMap<Integer, Integer> categories = new HashMap<>();
+    HashMap<Integer, Integer> categories = new HashMap<>();
+    private OnCategoryClickListener onCategoryClickListener;
 
-    public CategoryAdapter() {
+    public interface OnCategoryClickListener {
+        void onCategoryClick(int position);
+    }
+
+    public void setOnCategoryClickListener(OnCategoryClickListener onCategoryClickListener) {
+        this.onCategoryClickListener = onCategoryClickListener;
+    }
+
+    public CategoryAdapter(HashMap<Integer, Integer> categories) {
+        this.categories = categories;
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
-        categories.put(0, R.drawable.category_electronic);
-        categories.put(1, R.drawable.category_russian_rock);
-        categories.put(2, R.drawable.category_foreign_rock);
-        categories.put(3, R.drawable.category_oldschool);
-        categories.put(4, R.drawable.category_russian_pop);
-        categories.put(5, R.drawable.category_latino);
-        categories.put(6, R.drawable.category_zashkvar);
-        categories.put(7, R.drawable.category_foreign_pop);
-        categories.put(8, R.drawable.category_rap);
-        categories.put(9, R.drawable.category_eurovision);
         return new CategoryViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        while (position < 10) {
+        System.out.println(position);
             holder.imageViewCategory.setImageResource(categories.get(position));
-        }
+
     }
 
     @Override
@@ -49,11 +54,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageViewCategory;
+        private ImageView imageViewCategory;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewCategory = itemView.findViewById(R.id.imageViewCategory);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if  (onCategoryClickListener != null) {
+                        onCategoryClickListener.onCategoryClick(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 }

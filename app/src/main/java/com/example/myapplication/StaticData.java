@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import java.util.HashMap;
+
 public final class StaticData {
 
     public static final String URL_REST_BASE_USERS = "http://188.68.184.242:65001/user/";

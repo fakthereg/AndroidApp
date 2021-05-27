@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonPlayBack"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonPlayBack" />
+
+    <ImageView
+        android:id="@+id/imageViewPlayHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/play_header" />
+
+    <ImageView
+        android:id="@+id/imageViewPlayAvatar"
+        android:layout_width="42dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar1" />
+
+    <TextView
+        android:id="@+id/textViewPlayUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/garetheavy"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayAvatar"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPlayAvatar"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayAvatar" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayAvatar"
+        app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/textViewPlayScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:fontFamily="@font/gothic"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintEnd_toStartOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+    <TextView
+        android:id="@+id/textViewPlayCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/garetheavy"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlayHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlayAvatar" />
+
+    <ImageView
+        android:id="@+id/imageViewPlayBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewPlaySongBackground1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlayHeader"
+        app:srcCompat="@drawable/play_background" />
+
+    <ImageView
+        android:id="@+id/imageViewPlaySongBackground1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewPlaySongBackground2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlayBackground"
+        app:srcCompat="@drawable/song_background_default" />
+
+    <TextView
+        android:id="@+id/textViewPlaySongArtist1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/garetheavy"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPlaySongTitle1"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlaySongBackground1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlaySongBackground1"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlaySongBackground1" />
+
+    <TextView
+        android:id="@+id/textViewPlaySongTitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/garetheavy"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlaySongBackground1"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlaySongBackground1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlaySongBackground1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlaySongArtist1" />
+
+    <ImageView
+        android:id="@+id/imageViewPlaySongBackground2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewPlaySongBackground3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlaySongBackground1"
+        app:srcCompat="@drawable/song_background_default" />
+
+    <TextView
+        android:id="@+id/textViewPlaySongArtist2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/garetheavy"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPlaySongTitle2"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlaySongBackground2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlaySongBackground2"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlaySongBackground2" />
+
+    <TextView
+        android:id="@+id/textViewPlaySongTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/garetheavy"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlaySongBackground2"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlaySongBackground2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlaySongBackground2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlaySongArtist2" />
+
+    <ImageView
+        android:id="@+id/imageViewPlaySongBackground3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonPlayBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlaySongBackground2"
+        app:srcCompat="@drawable/song_background_default" />
+
+    <TextView
+        android:id="@+id/textViewPlaySongTitle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/garetheavy"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlaySongBackground3"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlaySongBackground3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlaySongBackground3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlaySongArtist3" />
+
+    <TextView
+        android:id="@+id/textViewPlaySongArtist3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/garetheavy"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPlaySongTitle3"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlaySongBackground3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlaySongBackground3"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlaySongBackground3" />
+
+    <ImageButton
+        android:id="@+id/imageButtonPlayBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/play_back_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -25,6 +26,7 @@ import com.example.myapplication.ui.main.fragments.FragmentCategory;
 import com.example.myapplication.ui.main.fragments.FragmentLoggedIn;
 import com.example.myapplication.ui.main.fragments.FragmentLogin;
 import com.example.myapplication.ui.main.fragments.FragmentPanels;
+import com.example.myapplication.ui.main.fragments.FragmentPlay;
 import com.example.myapplication.ui.main.fragments.FragmentProfile;
 import com.example.myapplication.ui.main.fragments.FragmentRating;
 import com.example.myapplication.ui.main.fragments.FragmentRegisterOne;
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         TextView header = findViewById(R.id.top_panel_header);
+        TextView score = findViewById(R.id.top_panel_score);
         if (button.getId() == R.id.login_button_login) {
             EditText input_login = findViewById(R.id.login_login);
             EditText input_password = findViewById(R.id.login_password);
@@ -136,7 +139,6 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             }
         } else if (button.getId() == R.id.register_button_back) {
             getSupportFragmentManager().popBackStack();
-
         } else if (button.getId() == R.id.register2_avatar1) {
             User.avatar = R.drawable.avatar1;
             User.setAvatarId(User.avatar);
@@ -186,6 +188,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
                     setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in, android.R.animator.fade_out).
                     replace(R.id.panels_container, FragmentRating.getInstance()).
                     commit();
+            findViewById(R.id.top_panel_score).setVisibility(View.INVISIBLE);
             findViewById(R.id.top_panel_coin).setVisibility(View.VISIBLE);
             header.setText("рейтинг");
 
@@ -195,6 +198,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
                     setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in, android.R.animator.fade_out).
                     replace(R.id.panels_container, FragmentCategory.getInstance()).
                     commit();
+            score.setText(User.score+"");
             findViewById(R.id.top_panel_score).setVisibility(View.VISIBLE);
             findViewById(R.id.top_panel_coin).setVisibility(View.VISIBLE);
             header.setText("категории");
@@ -247,7 +251,6 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         } else if (username.equals(StaticData.FAILED_REGISTER_USER_NAME)) {
             fragmentManager.popBackStack();
             Toast.makeText(this, "Такой пользователь уже есть!", Toast.LENGTH_SHORT).show();
-//            return StaticData.EVENT_CODE_FAIL;
         } else {
             try {
                 Log.d("mytag", jsonObject.toString());
@@ -298,6 +301,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         }
     }
 
+
     private static class ConnectPostTask extends AsyncTask<String, Void, JSONObject> {
 
         @Override
@@ -339,7 +343,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         }
     }
 
-    private static class ConnectGetTask extends AsyncTask<String, Void, String> {
+    public static class ConnectGetTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             URL url = null;
