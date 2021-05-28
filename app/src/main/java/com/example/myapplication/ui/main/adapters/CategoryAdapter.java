@@ -1,25 +1,22 @@
 package com.example.myapplication.ui.main.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.main.fragments.FragmentRegisterOne;
 
 import java.util.HashMap;
-import java.util.zip.Inflater;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     HashMap<Integer, Integer> categories = new HashMap<>();
+
     private OnCategoryClickListener onCategoryClickListener;
 
     public interface OnCategoryClickListener {
@@ -34,6 +31,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         this.categories = categories;
     }
 
+
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +42,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         System.out.println(position);
-            holder.imageViewCategory.setImageResource(categories.get(position));
+        holder.imageViewCategory.setImageResource(categories.get(position));
 
     }
 
@@ -62,7 +60,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if  (onCategoryClickListener != null) {
+                    if (onCategoryClickListener != null) {
                         onCategoryClickListener.onCategoryClick(getAdapterPosition());
                     }
                 }

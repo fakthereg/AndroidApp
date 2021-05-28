@@ -1,13 +1,18 @@
 package com.example.myapplication.ui.main.fragments;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -28,6 +33,8 @@ import java.util.concurrent.ExecutionException;
 public class FragmentCategory extends Fragment {
 
     private static FragmentCategory instance;
+    HashMap<Integer, Integer> categories = new HashMap<>();
+    CategoryAdapter adapter = new CategoryAdapter(categories);
 
     public static FragmentCategory getInstance() {
         if (instance == null) {
@@ -35,10 +42,17 @@ public class FragmentCategory extends Fragment {
         }
         return instance;
     }
+    public void init(){
+        RecyclerView recyclerViewCategories = this.getView().findViewById(R.id.recyclerViewCategory);
+        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewCategories.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i("mytag", "oncreateView");
         return inflater.inflate(R.layout.fragment_category, container, false);
 
     }
@@ -46,8 +60,7 @@ public class FragmentCategory extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerViewCategories = view.findViewById(R.id.recyclerViewCategory);
-        HashMap<Integer, Integer> categories = new HashMap<>();
+
         categories.put(0, R.drawable.category_electronic);
         categories.put(1, R.drawable.category_russian_rock);
         categories.put(2, R.drawable.category_foreign_rock);
@@ -58,13 +71,10 @@ public class FragmentCategory extends Fragment {
         categories.put(7, R.drawable.category_foreign_pop);
         categories.put(8, R.drawable.category_rap);
         categories.put(9, R.drawable.category_eurovision);
-        CategoryAdapter adapter = new CategoryAdapter(categories);
-        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerViewCategories.setAdapter(adapter);
+        init();
         adapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClick(int position) {
-                Toast.makeText(getContext(), "clicked: " + position, Toast.LENGTH_SHORT).show();
                 MainActivity.ConnectGetTask getSongsByCategory = new MainActivity.ConnectGetTask();
                 JSONArray songs = new JSONArray();
                 try {
@@ -76,7 +86,6 @@ public class FragmentCategory extends Fragment {
                 } catch (JSONException exception) {
                     exception.printStackTrace();
                 }
-                Toast.makeText(getContext(), "songs found: " + songs.length(), Toast.LENGTH_SHORT).show();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.container, FragmentPlay.getInstance()).addToBackStack(null).show(FragmentPlay.getInstance()).commit();
@@ -84,5 +93,52 @@ public class FragmentCategory extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+        Log.i("mytag", "onResume");
+    }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i("mytag", "onSaveinstanceState");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i("mytag", "onCreate");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.i("mytag", "onActivityCreated");
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.i("mytag", "onAttach to fragmanager");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.i("mytag", "onDetach from fragmanager");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i("mytag", "ondestroyview");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("mytag", "ondestroy");
+    }
 }

@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -26,7 +25,6 @@ import com.example.myapplication.ui.main.fragments.FragmentCategory;
 import com.example.myapplication.ui.main.fragments.FragmentLoggedIn;
 import com.example.myapplication.ui.main.fragments.FragmentLogin;
 import com.example.myapplication.ui.main.fragments.FragmentPanels;
-import com.example.myapplication.ui.main.fragments.FragmentPlay;
 import com.example.myapplication.ui.main.fragments.FragmentProfile;
 import com.example.myapplication.ui.main.fragments.FragmentRating;
 import com.example.myapplication.ui.main.fragments.FragmentRegisterOne;
@@ -198,32 +196,39 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
                     setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in, android.R.animator.fade_out).
                     replace(R.id.panels_container, FragmentCategory.getInstance()).
                     commit();
-            score.setText(User.score+"");
+            score.setText(String.valueOf(User.score));
             findViewById(R.id.top_panel_score).setVisibility(View.VISIBLE);
             findViewById(R.id.top_panel_coin).setVisibility(View.VISIBLE);
             header.setText("категории");
+//            FragmentCategory.getInstance().init();
 
         } else if (button.getId() == R.id.bottom_panel_exit) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Выход");
-            builder.setMessage("Правда хочешь выйти?");
-            builder.setNegativeButton("Нет",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,
-                                            int which) {
-                            dialog.cancel();
-                        }
-                    });
-            builder.setPositiveButton("Да",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,
-                                            int which) {
-                            System.exit(0);
-                        }
-                    });
-            builder.show();
+            showExitDialog();
 
+        } else if (button.getId() == R.id.imageButtonPlayBack) {
+            fragmentTransaction.replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
+    }
+
+    private void showExitDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Выход");
+        builder.setMessage("Правда хочешь выйти?");
+        builder.setNegativeButton("Нет",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.cancel();
+                    }
+                });
+        builder.setPositiveButton("Да",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        System.exit(0);
+                    }
+                });
+        builder.show();
     }
 
     private void Register() {
@@ -247,7 +252,6 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             fragmentTransaction.
                     replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, FragmentLoggedIn.getInstance()).
                     commit();
-            //   return StaticData.EVENT_CODE_SUCCESS;
         } else if (username.equals(StaticData.FAILED_REGISTER_USER_NAME)) {
             fragmentManager.popBackStack();
             Toast.makeText(this, "Такой пользователь уже есть!", Toast.LENGTH_SHORT).show();
@@ -400,4 +404,8 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
+    }
 }
