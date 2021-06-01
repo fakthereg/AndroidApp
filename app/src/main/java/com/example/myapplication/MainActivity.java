@@ -240,11 +240,8 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         try {
             jsonObject = registerTask.execute(StaticData.URL_REST_BASE_USERS + StaticData.URL_REGISTER).get();
             username = jsonObject.getString("name");
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (Exception e) {
+            Toast.makeText(this, "Кажется нет интернета..", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         if (username.equals(User.name)) {
@@ -301,6 +298,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
                 }
             }
         } catch (Exception ex) {
+            Toast.makeText(this, "Кажется нет интернета..", Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
         }
     }
