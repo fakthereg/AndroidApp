@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     private ImageView imageViewBackground3;
     private TextView textViewArtist3;
     private TextView textViewTitle3;
+    private ImageButton imageButtonBack;
 
     private JSONArray songs;
     private JSONObject songToGuess;
@@ -76,6 +78,8 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         imageViewBackground3 = view.findViewById(R.id.imageViewPlaySongBackground3);
         textViewArtist3 = view.findViewById(R.id.textViewPlaySongArtist3);
         textViewTitle3 = view.findViewById(R.id.textViewPlaySongTitle3);
+        imageButtonBack = view.findViewById(R.id.imageButtonPlayBack);
+        imageButtonBack.setOnClickListener(this);
         imageViewBackground1.setOnClickListener(this);
         imageViewBackground2.setOnClickListener(this);
         imageViewBackground3.setOnClickListener(this);
@@ -98,7 +102,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         imageViewAvatar.setImageResource(User.avatar);
         textViewUsername.setText(User.name);
         textViewScore.setText(String.valueOf(User.score));
-        textViewCategory.setText(StaticData.getChosenCategory());
+        textViewCategory.setText(StaticData.getChosenCategory().toUpperCase());
         songs = StaticData.songsInCategory;
         try {
             correctIndex = (int) (Math.random() * songs.length());
@@ -162,11 +166,14 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        timer.cancel();
+        if (view.getId() == R.id.imageButtonPlayBack){
+            getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
+        }
         //TODO добавить сыгранную песню в список к пользователю (сразу на сервер или пока локально?)
         NetworkUtils.ConnectPostTask addToPlayed = new NetworkUtils.ConnectPostTask();
         addToPlayed.execute(StaticData.URL_REST_BASE_USERS + User.name + StaticData.URL_USER_ADD_TO_PLAYED_FILE, songToGuess.toString());
         StaticData.answered = true;
-        timer.cancel();
         //TODO add scores    , play youwin sound, wait 1 sec Thread.sleep not working?
         if (view.getId() == R.id.imageViewPlaySongBackground1) {
             StaticData.chosenSongArtist = textViewArtist1.getText().toString();

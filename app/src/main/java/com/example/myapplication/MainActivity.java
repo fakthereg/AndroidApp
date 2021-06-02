@@ -193,8 +193,6 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         } else if (button.getId() == R.id.bottom_panel_exit) {
             showExitDialog();
 
-        } else if (button.getId() == R.id.imageButtonPlayBack) {
-            fragmentTransaction.replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
     }
 
