@@ -4,19 +4,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class File {
-    private String name;
+    private String artist;
+    private String title;
     private String filename;
     private String category;
 
-    public File(String name, String filename, String category) {
-        this.name = name;
+    public File(String artist, String title, String filename, String category) {
+        this.artist = artist;
+        this.title = title;
         this.filename = filename;
         this.category = category;
     }
 
     public File(JSONObject jsonObject) {
         try {
-            this.name = jsonObject.getString("name");
+            this.artist = jsonObject.getString("artist");
+            this.title = jsonObject.getString("title");
             this.filename = jsonObject.getString("filename");
             this.category = jsonObject.getString("category");
         } catch (JSONException exception) {
@@ -24,12 +27,20 @@ public class File {
         }
     }
 
-    public String getName() {
-        return name;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getFilename() {

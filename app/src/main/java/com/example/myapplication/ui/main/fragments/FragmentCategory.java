@@ -1,10 +1,6 @@
 package com.example.myapplication.ui.main.fragments;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.MainActivity;
+import com.example.myapplication.NetworkUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.StaticData;
 import com.example.myapplication.ui.main.MainViewModel;
@@ -78,12 +73,12 @@ public class FragmentCategory extends Fragment {
         adapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClick(int position) {
-                MainActivity.ConnectGetTask getSongsByCategory = new MainActivity.ConnectGetTask();
+                NetworkUtils.ConnectGetTask getSongsByCategory = new NetworkUtils.ConnectGetTask();
                 JSONArray songs = new JSONArray();
                 try {
                     songs = new JSONArray(getSongsByCategory.execute(StaticData.URL_REST_BASE_FILES + position + "/").get());
                     StaticData.songsInCategory = songs;
-                    StaticData.category = position;
+                    StaticData.chosenCategory = position;
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

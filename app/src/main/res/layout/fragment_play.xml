@@ -66,10 +66,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:capitalize="characters"
         android:fontFamily="@font/garetheavy"
         android:text="TextView"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/_24sdp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewPlayHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPlayAvatar" />
@@ -84,7 +85,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPlayHeader"
-        app:srcCompat="@drawable/play_background" />
+        app:srcCompat="@drawable/play_background_no_arrow" />
 
     <ImageView
         android:id="@+id/imageViewPlaySongBackground1"
@@ -209,5 +210,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/play_back_button" />
+
+    <TextView
+        android:id="@+id/textViewPlayTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/garetheavy"
+        android:gravity="center"
+        android:text="30"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_34sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayBackground"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPlayBackground"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPlayBackground"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
