@@ -12,7 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.NetworkUtils;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.utils.NetworkUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.StaticData;
 import com.example.myapplication.User;
@@ -101,6 +102,7 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        MainActivity.playButtonClickSound();
         if (v.getId() == R.id.imageButtonAnswerNext) {
             //TODO получить список песен минус список уже сыгранных, родить новый фрагментПлей
             NetworkUtils.ConnectGetTask getNextSongTask = new NetworkUtils.ConnectGetTask();
@@ -113,6 +115,7 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
             }
             getFragmentManager().beginTransaction().replace(R.id.container, new FragmentPlay()).commit();
         } else if (v.getId() == R.id.imageButtonAnswerBack) {
+            MainActivity.playMainTheme(true);
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
     }

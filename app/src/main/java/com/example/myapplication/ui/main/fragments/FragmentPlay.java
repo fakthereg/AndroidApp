@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.main.fragments;
 
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -15,7 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.NetworkUtils;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.utils.NetworkUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.StaticData;
 import com.example.myapplication.User;
@@ -54,6 +57,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     ArrayList<ImageView> backgrounds = new ArrayList<>();
     CountDownTimer timer;
     private TextView textViewTimer;
+
 
     public static FragmentPlay getInstance() {
         if (instance == null) {
@@ -166,8 +170,10 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        MainActivity.playButtonClickSound();
         timer.cancel();
-        if (view.getId() == R.id.imageButtonPlayBack){
+        if (view.getId() == R.id.imageButtonPlayBack) {
+            MainActivity.playMainTheme(true);
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
         //TODO добавить сыгранную песню в список к пользователю (сразу на сервер или пока локально?)

@@ -5,6 +5,9 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +31,7 @@ import com.example.myapplication.ui.main.fragments.FragmentProfile;
 import com.example.myapplication.ui.main.fragments.FragmentRating;
 import com.example.myapplication.ui.main.fragments.FragmentRegisterOne;
 import com.example.myapplication.ui.main.fragments.FragmentRegisterTwo;
+import com.example.myapplication.utils.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,6 +42,10 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity /*implements WampInterface*/ {
     //   WebSocketClient client;
+    private static SoundPool soundPool;
+    private static MediaPlayer mediaPlayer;
+    private static int soundIdButtonClick;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,11 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         //      client = WebSocketClient.getInstance();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.container);
+        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundIdButtonClick = soundPool.load(this, R.raw.button_click, 1);
+        mediaPlayer = MediaPlayer.create(this, R.raw.main_theme);
+        mediaPlayer.setLooping(true);
+        playMainTheme(true);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, FragmentLogin.getInstance()).commit();
         }
@@ -81,6 +94,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     }
 
     public void buttonClick(View button) {
+        playButtonClickSound();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         TextView header = findViewById(R.id.top_panel_header);
@@ -196,7 +210,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         }
     }
 
-    private void showExitDialog(){
+    private void showExitDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Выход");
         builder.setMessage("Правда хочешь выйти?");
@@ -293,5 +307,28 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     @Override
     public void onBackPressed() {
         showExitDialog();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+    }
+
+    public static void playButtonClickSound() {
+        soundPool.play(soundIdButtonClick, 1, 1, 1, 0, 0);
+    }
+
+    public static void playMainTheme(boolean play) {
+        if (mediaPlayer.isPlaying() && !play) {
+            mediaPlayer.pause();
+        }
+        if (!mediaPlayer.isPlaying() && play) {
+            mediaPlayer.seekTo(0);
+            mediaPlayer.start();
+        }
     }
 }

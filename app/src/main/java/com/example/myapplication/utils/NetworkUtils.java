@@ -1,7 +1,9 @@
-package com.example.myapplication;
+package com.example.myapplication.utils;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.myapplication.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;

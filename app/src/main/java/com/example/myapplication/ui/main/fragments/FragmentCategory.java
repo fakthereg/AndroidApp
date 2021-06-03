@@ -15,7 +15,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.NetworkUtils;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.utils.NetworkUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.StaticData;
 import com.example.myapplication.ui.main.MainViewModel;
@@ -29,7 +30,6 @@ import java.util.concurrent.ExecutionException;
 
 public class FragmentCategory extends Fragment {
 
-    private MainViewModel viewModel;
     private static FragmentCategory instance;
     HashMap<Integer, Integer> categories = new HashMap<>();
     CategoryAdapter adapter = new CategoryAdapter(categories);
@@ -58,7 +58,6 @@ public class FragmentCategory extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         categories.put(0, R.drawable.category_electronic);
         categories.put(1, R.drawable.category_russian_rock);
         categories.put(2, R.drawable.category_foreign_rock);
@@ -73,6 +72,8 @@ public class FragmentCategory extends Fragment {
         adapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClick(int position) {
+                MainActivity.playButtonClickSound();
+
                 NetworkUtils.ConnectGetTask getSongsByCategory = new NetworkUtils.ConnectGetTask();
                 JSONArray songs = new JSONArray();
                 try {
@@ -87,6 +88,7 @@ public class FragmentCategory extends Fragment {
                     exception.printStackTrace();
                 }
                 if (songs.length() > 0) {
+                    MainActivity.playMainTheme(false);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.container, new FragmentPlay()).addToBackStack(null).show(FragmentPlay.getInstance()).commit();
