@@ -34,7 +34,7 @@
         android:fontFamily="@font/gothic2"
         android:text="TextView"
         android:textColor="#FFFFFF"
-        android:textSize="@dimen/_18ssp"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayAvatar"
         app:layout_constraintStart_toEndOf="@+id/imageViewPlayAvatar"
         app:layout_constraintTop_toTopOf="@+id/imageViewPlayAvatar" />
@@ -58,7 +58,7 @@
         android:fontFamily="@font/gothic2"
         android:text="TextView"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintEnd_toStartOf="@+id/imageView9"
         app:layout_constraintTop_toTopOf="@+id/imageView9" />
@@ -72,7 +72,7 @@
         android:fontFamily="@font/garetheavy"
         android:text="TextView"
         android:textColor="@color/white"
-        android:textSize="@dimen/_36ssp"
+        android:textSize="@dimen/_30ssp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewPlayHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPlayAvatar" />
