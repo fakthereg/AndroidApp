@@ -72,7 +72,7 @@
             android:id="@+id/imageViewRatingCrown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/imageViewRatingItemBackground"
             app:layout_constraintEnd_toEndOf="@+id/imageViewRatingItemBackground"
             app:layout_constraintStart_toEndOf="@+id/imageViewRatingItemBackground"
