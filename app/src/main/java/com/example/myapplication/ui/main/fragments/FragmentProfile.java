@@ -37,7 +37,7 @@ public class FragmentProfile extends Fragment {
         score.setText(String.valueOf(User.score));
         correct.setText(String.valueOf(User.correct));
         wrong.setText(String.valueOf(User.wrong));
-        place.setText(String.valueOf(User.place));
+        place.setText(String.valueOf(User.place)); //TODO get user rating place and parse here
 
         return view;
 

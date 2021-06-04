@@ -11,15 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.User;
 import com.example.myapplication.utils.NetworkUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.StaticData;
-import com.example.myapplication.ui.main.MainViewModel;
 import com.example.myapplication.ui.main.adapters.CategoryAdapter;
 
 import org.json.JSONArray;
@@ -41,12 +40,6 @@ public class FragmentCategory extends Fragment {
         return instance;
     }
 
-    public void init() {
-        RecyclerView recyclerViewCategories = this.getView().findViewById(R.id.recyclerViewCategory);
-        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewCategories.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
 
     @Nullable
     @Override
@@ -68,26 +61,25 @@ public class FragmentCategory extends Fragment {
         categories.put(7, R.drawable.category_foreign_pop);
         categories.put(8, R.drawable.category_rap);
         categories.put(9, R.drawable.category_eurovision);
-        init();
+        RecyclerView recyclerViewCategories = this.getView().findViewById(R.id.recyclerViewCategory);
+        recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewCategories.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         adapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClick(int position) {
                 MainActivity.playButtonClickSound();
-
                 NetworkUtils.ConnectGetTask getSongsByCategory = new NetworkUtils.ConnectGetTask();
-                JSONArray songs = new JSONArray();
+                NetworkUtils.ConnectGetTask getPlayedSongsByCategory = new NetworkUtils.ConnectGetTask();
                 try {
-                    songs = new JSONArray(getSongsByCategory.execute(StaticData.URL_REST_BASE_FILES + position + "/").get());
-                    StaticData.songsInCategory = songs;
+                    StaticData.songsPlayedInCategory = new JSONArray(getPlayedSongsByCategory.execute(String.format(StaticData.URL_GET_PLAYED_BY_USER_CATEGORY, User.name, position)).get());
+                    StaticData.allSongsInCategory  = new JSONArray(getSongsByCategory.execute(String.format(StaticData.URL_GET_FILES_BY_CATEGORY, position)).get());
                     StaticData.chosenCategory = position;
-                } catch (ExecutionException e) {
+                    //TODO find distinct songs
+                } catch (Exception e) {
                     e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (JSONException exception) {
-                    exception.printStackTrace();
                 }
-                if (songs.length() > 0) {
+                if (StaticData.getSongsNotPlayedInCategory().length() > 0) {
                     MainActivity.playMainTheme(false);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

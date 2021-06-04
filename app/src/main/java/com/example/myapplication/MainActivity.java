@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     private static SoundPool soundPool;
     private static MediaPlayer mediaPlayer;
     private static int soundIdButtonClick;
+    private static int soundIdCorrect;
+    private static int soundIdWrong;
+    private boolean isPlaying;
 
 
     @Override
@@ -55,8 +58,10 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         //      client = WebSocketClient.getInstance();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.container);
-        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         soundIdButtonClick = soundPool.load(this, R.raw.button_click, 1);
+        soundIdCorrect = soundPool.load(this, R.raw.answer_correct, 1);
+        soundIdWrong = soundPool.load(this, R.raw.answer_wrong, 1);
         mediaPlayer = MediaPlayer.create(this, R.raw.main_theme);
         mediaPlayer.setLooping(true);
         playMainTheme(true);
@@ -238,7 +243,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
         JSONObject jsonObject = null;
         String username = "";
         try {
-            jsonObject = registerTask.execute(StaticData.URL_REST_BASE_USERS + StaticData.URL_REGISTER).get();
+            jsonObject = registerTask.execute(StaticData.URL_REGISTER).get();
             username = jsonObject.getString("name");
         } catch (Exception e) {
             Toast.makeText(this, "Кажется нет интернета..", Toast.LENGTH_SHORT).show();
@@ -270,11 +275,11 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             if (loginInput != null && passwordInput != null) {
                 String login = loginInput.getText().toString().toLowerCase().trim();
                 String password = passwordInput.getText().toString().toLowerCase().trim();
-                JSONArray userList = new JSONArray(getAllUsersTask.execute(StaticData.URL_REST_BASE_USERS + StaticData.URL_GET_ALL_USERS).get());
+                JSONArray userList = new JSONArray(getAllUsersTask.execute(StaticData.URL_GET_ALL_USERS).get());
                 for (int i = 0; i < userList.length(); i++) {
                     if (login.equals(userList.getString(i))) {
                         NetworkUtils.ConnectGetTask getUserTask = new NetworkUtils.ConnectGetTask();
-                        JSONObject userJson = new JSONObject(getUserTask.execute(StaticData.URL_REST_BASE_USERS + String.format(StaticData.URL_GET_USER_BY_NAME, userList.getString(i))).get());
+                        JSONObject userJson = new JSONObject(getUserTask.execute(String.format(StaticData.URL_GET_USER_BY_NAME, userList.getString(i))).get());
                         if (userJson.getString("password").equals(password)) {
                             User.name = login;
                             User.password = password;
@@ -313,13 +318,39 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
+        mediaPlayer.stop();
+        mediaPlayer.release();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isPlaying){
+        playMainTheme(true);}
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer.isPlaying()){
+            isPlaying = true;
+        } else {
+            isPlaying = false;
         }
+        playMainTheme(false);
     }
 
     public static void playButtonClickSound() {
         soundPool.play(soundIdButtonClick, 1, 1, 1, 0, 0);
+    }
+
+    public static void playAnswerCorrect() {
+        soundPool.play(soundIdCorrect, 1, 1, 1, 0, 0);
+    }
+
+    public static void playAnswerWrong() {
+        soundPool.play(soundIdWrong, 1, 1, 1, 0, 0);
     }
 
     public static void playMainTheme(boolean play) {
@@ -327,7 +358,6 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             mediaPlayer.pause();
         }
         if (!mediaPlayer.isPlaying() && play) {
-            mediaPlayer.seekTo(0);
             mediaPlayer.start();
         }
     }

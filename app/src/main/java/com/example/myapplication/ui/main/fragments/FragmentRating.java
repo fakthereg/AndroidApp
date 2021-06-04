@@ -69,7 +69,7 @@ public class FragmentRating extends Fragment {
             HttpURLConnection urlConnection = null;
             StringBuilder result = new StringBuilder();
             try {
-                url = new URL(StaticData.URL_REST_BASE_USERS + StaticData.URL_GET_USER_SCORES);
+                url = new URL(StaticData.URL_GET_USER_SCORES);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 InputStream inputStream = urlConnection.getInputStream();

@@ -108,8 +108,8 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
             NetworkUtils.ConnectGetTask getNextSongTask = new NetworkUtils.ConnectGetTask();
             JSONArray songs = new JSONArray();
             try {
-                songs = new JSONArray(getNextSongTask.execute(StaticData.URL_REST_BASE_FILES + StaticData.chosenCategory + "/").get());
-                StaticData.songsInCategory = songs;
+                songs = new JSONArray(getNextSongTask.execute(String.format(StaticData.URL_GET_FILES_BY_CATEGORY, StaticData.chosenCategory)).get());
+                StaticData.allSongsInCategory = songs;
             } catch (Exception e) {
                 e.printStackTrace();
             }

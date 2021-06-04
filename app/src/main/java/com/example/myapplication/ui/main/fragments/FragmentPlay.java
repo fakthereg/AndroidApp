@@ -1,7 +1,5 @@
 package com.example.myapplication.ui.main.fragments;
 
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -18,10 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.MainActivity;
-import com.example.myapplication.utils.NetworkUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.StaticData;
 import com.example.myapplication.User;
+import com.example.myapplication.utils.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,7 +105,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         textViewUsername.setText(User.name);
         textViewScore.setText(String.valueOf(User.score));
         textViewCategory.setText(StaticData.getChosenCategory().toUpperCase());
-        songs = StaticData.songsInCategory;
+        songs = StaticData.allSongsInCategory;
         try {
             correctIndex = (int) (Math.random() * songs.length());
             songToGuess = songs.getJSONObject(correctIndex);
@@ -176,11 +174,16 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
             MainActivity.playMainTheme(true);
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
-        //TODO добавить сыгранную песню в список к пользователю (сразу на сервер или пока локально?)
-        NetworkUtils.ConnectPostTask addToPlayed = new NetworkUtils.ConnectPostTask();
-        addToPlayed.execute(StaticData.URL_REST_BASE_USERS + User.name + StaticData.URL_USER_ADD_TO_PLAYED_FILE, songToGuess.toString());
-        StaticData.answered = true;
-        //TODO add scores    , play youwin sound, wait 1 sec Thread.sleep not working?
+        if (view.getId() != R.id.imageButtonPlayBack) {
+            NetworkUtils.ConnectPostTask addToPlayed = new NetworkUtils.ConnectPostTask();
+            try {
+                addToPlayed.execute(String.format(StaticData.URL_USER_ADD_TO_PLAYED_FILE, User.name), songToGuess.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            StaticData.answered = true;
+        }
+        //TODO     maybe wait 1 sec? Thread.sleep not working, must not be used
         if (view.getId() == R.id.imageViewPlaySongBackground1) {
             StaticData.chosenSongArtist = textViewArtist1.getText().toString();
             StaticData.chosenSongTitle = textViewTitle1.getText().toString();
@@ -210,9 +213,11 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
 
     private void answerWrong(View view) {
         StaticData.currentAnswer = false;
-        User.wrong++;//TODO отправить сыгранную песню на сервер в виде ? List? ArrayList? JSONArray?   отправить новые статы пользователя на сервер
+        User.wrong++;
         ImageView imageView = (ImageView) view;
         imageView.setImageResource(R.drawable.song_background_wrong);
+        postUserData();
+        MainActivity.playAnswerWrong();
         getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
     }
 
@@ -222,6 +227,28 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         User.correct++;
         ImageView imageView = (ImageView) view;
         imageView.setImageResource(R.drawable.song_background_correct);
+        postUserData();
+        MainActivity.playAnswerCorrect();
         getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
+    }
+
+    private void postUserData() {
+        NetworkUtils.ConnectPostTask setData = new NetworkUtils.ConnectPostTask();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("score", User.score);
+            jsonObject.put("correct", User.correct);
+            jsonObject.put("wrong", User.wrong);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("mytag", "sending user data " + jsonObject.toString());
+        setData.execute(String.format(StaticData.URL_SET_USER_DATA, User.name), jsonObject.toString());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //TODO остановка таймера при блокировке экрана. Swing timer например, или нафиг это все
     }
 }
