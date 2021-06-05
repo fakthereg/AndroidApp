@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
                 }
             }
         } catch (Exception ex) {
-            Toast.makeText(this, "Кажется нет интернета..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Проблемы с подключением", Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
         }
     }

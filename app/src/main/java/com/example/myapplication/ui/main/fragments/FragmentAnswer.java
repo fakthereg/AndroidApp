@@ -71,7 +71,7 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
         imageButtonBack.setOnClickListener(this);
         imageViewAvatar.setImageResource(User.avatar);
         textViewUsername.setText(User.name);
-        textViewCategory.setText(StaticData.getChosenCategory());
+        textViewCategory.setText(StaticData.getChosenCategory().toUpperCase());
         textViewScore.setText(String.valueOf(User.score));
         textViewArtist.setText(StaticData.chosenSongArtist);
         textViewTitle.setText(StaticData.chosenSongTitle);
@@ -103,18 +103,9 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         MainActivity.playButtonClickSound();
-        if (v.getId() == R.id.imageButtonAnswerNext) {
-            //TODO получить список песен минус список уже сыгранных, родить новый фрагментПлей
-            NetworkUtils.ConnectGetTask getNextSongTask = new NetworkUtils.ConnectGetTask();
-            JSONArray songs = new JSONArray();
-            try {
-                songs = new JSONArray(getNextSongTask.execute(String.format(StaticData.URL_GET_FILES_BY_CATEGORY, StaticData.chosenCategory)).get());
-                StaticData.allSongsInCategory = songs;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if (v.getId() == R.id.imageButtonAnswerNext && StaticData.songsLeftInChosenCategory > 1) {
             getFragmentManager().beginTransaction().replace(R.id.container, new FragmentPlay()).commit();
-        } else if (v.getId() == R.id.imageButtonAnswerBack) {
+        } else {
             MainActivity.playMainTheme(true);
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }

@@ -46,7 +46,8 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     private TextView textViewTitle3;
     private ImageButton imageButtonBack;
 
-    private JSONArray songs;
+    private JSONArray notPlayedSongs;
+    private JSONArray allSongs;
     private JSONObject songToGuess;
     private int correctIndex;
     private int correctPosition;
@@ -105,10 +106,11 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         textViewUsername.setText(User.name);
         textViewScore.setText(String.valueOf(User.score));
         textViewCategory.setText(StaticData.getChosenCategory().toUpperCase());
-        songs = StaticData.allSongsInCategory;
+        notPlayedSongs = StaticData.getSongsNotPlayedInCategory(StaticData.chosenCategory);
+        allSongs = StaticData.getAllSongsInCategory(StaticData.chosenCategory);
         try {
-            correctIndex = (int) (Math.random() * songs.length());
-            songToGuess = songs.getJSONObject(correctIndex);
+            correctIndex = (int) (Math.random() * StaticData.songsLeftInChosenCategory);
+            songToGuess = notPlayedSongs.getJSONObject(correctIndex);
             play();
         } catch (JSONException exception) {
             exception.printStackTrace();
@@ -136,6 +138,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
                 } catch (JSONException exception) {
                     exception.printStackTrace();
                 }
+                postSongToPlayed();
                 getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
             }
         };
@@ -147,6 +150,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         correctPosition = (int) (Math.random() * 3);
         int usedWrongIndex = -1;
         for (int i = 0; i < 3; i++) {
+            Log.i("mytag", "i = " + i);
             if (i == correctPosition) {
                 artists.get(i).setText(songToGuess.getString("artist"));
                 titles.get(i).setText(songToGuess.getString("title"));
@@ -155,11 +159,13 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
             } else {
                 int wrongIndex;
                 do {
-                    wrongIndex = (int) (Math.random() * songs.length());
-                } while (wrongIndex == correctIndex || usedWrongIndex == wrongIndex);
+                    wrongIndex = (int) (Math.random() * allSongs.length());
+                } while (allSongs.getJSONObject(wrongIndex).getString("filename").equals(songToGuess.getString("filename")) ||
+                        (usedWrongIndex != -1 && allSongs.getJSONObject(wrongIndex).getString("filename").equals(allSongs.getJSONObject(usedWrongIndex).getString("filename"))));
                 usedWrongIndex = wrongIndex;
-                artists.get(i).setText(songs.getJSONObject(wrongIndex).getString("artist"));
-                titles.get(i).setText(songs.getJSONObject(wrongIndex).getString("title"));
+                Log.i("mytag", "wron index = " + wrongIndex + "\nwrong set to " + allSongs.get(wrongIndex).toString());
+                artists.get(i).setText(allSongs.getJSONObject(wrongIndex).getString("artist"));
+                titles.get(i).setText(allSongs.getJSONObject(wrongIndex).getString("title"));
             }
         }
 
@@ -175,12 +181,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
         if (view.getId() != R.id.imageButtonPlayBack) {
-            NetworkUtils.ConnectPostTask addToPlayed = new NetworkUtils.ConnectPostTask();
-            try {
-                addToPlayed.execute(String.format(StaticData.URL_USER_ADD_TO_PLAYED_FILE, User.name), songToGuess.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            postSongToPlayed();
             StaticData.answered = true;
         }
         //TODO     maybe wait 1 sec? Thread.sleep not working, must not be used
@@ -242,10 +243,18 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d("mytag", "sending user data " + jsonObject.toString());
         setData.execute(String.format(StaticData.URL_SET_USER_DATA, User.name), jsonObject.toString());
     }
 
+    private void postSongToPlayed() {
+        StaticData.playedSongs.put(songToGuess);
+        NetworkUtils.ConnectPostTask addToPlayed = new NetworkUtils.ConnectPostTask();
+        try {
+            addToPlayed.execute(String.format(StaticData.URL_USER_ADD_TO_PLAYED, User.name), songToGuess.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onPause() {
         super.onPause();

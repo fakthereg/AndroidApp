@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.StaticData;
 
 import java.util.HashMap;
 
@@ -42,7 +43,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         System.out.println(position);
-        holder.imageViewCategory.setImageResource(categories.get(position));
+        if (StaticData.getSongsNotPlayedInCategory(position).length() > 0) {
+            holder.imageViewCategory.setImageResource(categories.get(position));
+        } else {
+            holder.imageViewCategory.setImageResource(R.drawable.song_background_default);
+        }
 
     }
 

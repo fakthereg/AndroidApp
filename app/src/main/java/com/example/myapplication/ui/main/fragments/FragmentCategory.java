@@ -23,7 +23,9 @@ import com.example.myapplication.ui.main.adapters.CategoryAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -64,27 +66,34 @@ public class FragmentCategory extends Fragment {
         RecyclerView recyclerViewCategories = this.getView().findViewById(R.id.recyclerViewCategory);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewCategories.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+     //   adapter.notifyDataSetChanged();
+        //TODO загрузить список всех песен по категориям +
+        // загрузить список сыгранных песен по категориям +
+        // засунуть в статикДата +
+        // покрасить пустые категории в чето другое ???
+        NetworkUtils.ConnectGetTask getAllSongs = new NetworkUtils.ConnectGetTask();
+        NetworkUtils.ConnectGetTask getPlayedSongs = new NetworkUtils.ConnectGetTask();
+        JSONArray playedSongs = new JSONArray();
+        JSONArray allSongs = new JSONArray();
+        try {
+            allSongs = new JSONArray(getAllSongs.execute(StaticData.URL_REST_BASE_FILES).get());
+            playedSongs = new JSONArray(getPlayedSongs.execute(String.format(StaticData.URL_GET_PLAYED_BY_USER, User.name)).get());
+            StaticData.playedSongs = playedSongs;
+            StaticData.allSongs = allSongs;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         adapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClick(int position) {
                 MainActivity.playButtonClickSound();
-                NetworkUtils.ConnectGetTask getSongsByCategory = new NetworkUtils.ConnectGetTask();
-                NetworkUtils.ConnectGetTask getPlayedSongsByCategory = new NetworkUtils.ConnectGetTask();
-                try {
-                    StaticData.songsPlayedInCategory = new JSONArray(getPlayedSongsByCategory.execute(String.format(StaticData.URL_GET_PLAYED_BY_USER_CATEGORY, User.name, position)).get());
-                    StaticData.allSongsInCategory  = new JSONArray(getSongsByCategory.execute(String.format(StaticData.URL_GET_FILES_BY_CATEGORY, position)).get());
-                    StaticData.chosenCategory = position;
-                    //TODO find distinct songs
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (StaticData.getSongsNotPlayedInCategory().length() > 0) {
+                StaticData.chosenCategory = position;
+                if (StaticData.getSongsNotPlayedInCategory(position).length() > 0) {
                     MainActivity.playMainTheme(false);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.container, new FragmentPlay()).addToBackStack(null).show(FragmentPlay.getInstance()).commit();
-                } else{
+                } else {
                     Toast.makeText(getContext(), "В этой категории пусто!", Toast.LENGTH_SHORT).show();
                 }
             }
