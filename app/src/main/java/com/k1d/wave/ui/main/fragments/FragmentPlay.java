@@ -62,8 +62,9 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     private TextView textViewTimer;
     private ProgressBar progressBarLoading;
 
-    MediaPlayer mediaPlayer;
-    String stringUrlToSong;
+    private MediaPlayer mediaPlayer;
+    private String stringUrlToSong;
+    private boolean isPlaying = false;
 
 
     public static FragmentPlay getInstance() {
@@ -147,7 +148,9 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
                 } catch (JSONException exception) {
                     exception.printStackTrace();
                 }
+
                 mediaPlayer.stop();
+                isPlaying = false;
                 postSongToPlayed();
                 getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
             }
@@ -175,6 +178,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
                 textViewTimer.setVisibility(View.VISIBLE);
                 timer.start();
                 mp.start();
+                isPlaying = true;
             }
         });
     }
@@ -188,7 +192,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
                 artists.get(i).setText(songToGuess.getString("artist"));
                 titles.get(i).setText(songToGuess.getString("title"));
                 Log.i("mytag", "correct index = " + correctIndex + "\ncorrect set to " + songToGuess.toString());
-                Toast.makeText(getContext(), songToGuess.getString("filename"), Toast.LENGTH_SHORT).show();
+  //              Toast.makeText(getContext(), songToGuess.getString("filename"), Toast.LENGTH_SHORT).show();
             } else {
                 int wrongIndex;
                 do {
@@ -210,6 +214,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         MainActivity.playButtonClickSound();
         timer.cancel();
         mediaPlayer.stop();
+        isPlaying = false;
         if (view.getId() == R.id.imageButtonPlayBack) {
             MainActivity.playMainTheme(true);
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
@@ -293,7 +298,18 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
+        if (mediaPlayer.isPlaying() && isPlaying){
+            mediaPlayer.pause();
+        }
         //TODO остановка таймера и музыки при блокировке экрана. Swing timer например, или нафиг это все
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isPlaying){
+            mediaPlayer.start();
+        }
     }
 
     @Override
