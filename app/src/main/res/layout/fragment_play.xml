@@ -238,6 +238,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayBackground"
         app:layout_constraintEnd_toEndOf="@+id/imageViewPlayBackground"
         app:layout_constraintStart_toStartOf="@+id/imageViewPlayBackground"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPlayBackground" />
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayBackground"
+        android:visibility="invisible"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarLoading"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPlayTimer"
+        app:layout_constraintStart_toStartOf="@+id/textViewPlayTimer"
+        app:layout_constraintTop_toTopOf="@+id/textViewPlayTimer"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPlayTimer"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
