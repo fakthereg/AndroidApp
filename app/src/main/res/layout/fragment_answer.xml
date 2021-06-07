@@ -15,6 +15,7 @@
         app:srcCompat="@drawable/song_background_win" />
 
     <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewSerp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,8 +23,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
+        app:lottie_speed="1.5"
         app:lottie_fileName="serp_true.json"
-        app:lottie_imageAssetsFolder="assets" />
+        app:lottie_imageAssetsFolder="assets"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/imageViewAnswerCup"
