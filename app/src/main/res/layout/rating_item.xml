@@ -39,11 +39,11 @@
             android:id="@+id/textViewRatingItemScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:fontFamily="@font/garetheavy"
             android:text="1500"
             app:layout_constraintBottom_toBottomOf="@+id/textViewRatingItemPlayer"
             app:layout_constraintEnd_toStartOf="@+id/imageViewRatingItemCoin"
-            app:layout_constraintStart_toEndOf="@+id/textViewRatingItemPlayer"
             app:layout_constraintTop_toTopOf="@+id/textViewRatingItemPlayer" />
 
         <ImageView

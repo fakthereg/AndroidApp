@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.main.fragments;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FragmentPlay extends Fragment implements View.OnClickListener {
@@ -56,6 +60,10 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     ArrayList<ImageView> backgrounds = new ArrayList<>();
     CountDownTimer timer;
     private TextView textViewTimer;
+    private ProgressBar progressBarLoading;
+
+    MediaPlayer mediaPlayer;
+    String stringUrlToSong;
 
 
     public static FragmentPlay getInstance() {
@@ -96,6 +104,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         backgrounds.add(imageViewBackground2);
         backgrounds.add(imageViewBackground3);
         textViewTimer = view.findViewById(R.id.textViewPlayTimer);
+        progressBarLoading = view.findViewById(R.id.progressBarLoading);
         return view;
     }
 
@@ -138,13 +147,37 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
                 } catch (JSONException exception) {
                     exception.printStackTrace();
                 }
+                mediaPlayer.stop();
                 postSongToPlayed();
                 getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
             }
         };
-        timer.start();
-    }
 
+        try {
+            stringUrlToSong = String.format(StaticData.URL_DOWNLOAD_FILE, StaticData.chosenCategory, songToGuess.getString("filename"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(stringUrlToSong);
+            Log.i("mytag", "mediaplayer data source set to " + stringUrlToSong);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setDisplay(null);
+        mediaPlayer.prepareAsync();
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                progressBarLoading.setVisibility(View.INVISIBLE);
+                textViewTimer.setVisibility(View.VISIBLE);
+                timer.start();
+                mp.start();
+            }
+        });
+    }
 
     private void play() throws JSONException {
         correctPosition = (int) (Math.random() * 3);
@@ -176,6 +209,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         MainActivity.playButtonClickSound();
         timer.cancel();
+        mediaPlayer.stop();
         if (view.getId() == R.id.imageButtonPlayBack) {
             MainActivity.playMainTheme(true);
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
@@ -255,9 +289,16 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
     }
+
     @Override
     public void onPause() {
         super.onPause();
-        //TODO остановка таймера при блокировке экрана. Swing timer например, или нафиг это все
+        //TODO остановка таймера и музыки при блокировке экрана. Swing timer например, или нафиг это все
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
     }
 }
