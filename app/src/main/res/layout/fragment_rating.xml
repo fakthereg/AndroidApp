@@ -26,6 +26,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline14" />
+        app:layout_constraintTop_toTopOf="@+id/guideline14"
+        android:paddingTop="@dimen/_10sdp"
+        android:clipToPadding="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

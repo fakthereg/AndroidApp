@@ -35,9 +35,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingView
     @Override
     public void onBindViewHolder(@NonNull RatingViewHolder holder, int position) {
         if (position == 0) {
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.imageViewBackground.getLayoutParams();
-            params.setMargins(0,100,0,0);
-            holder.imageViewBackground.setLayoutParams(params);
             holder.imageViewCrown.setVisibility(View.VISIBLE);
         }
         try {

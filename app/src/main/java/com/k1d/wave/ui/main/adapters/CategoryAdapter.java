@@ -52,11 +52,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        if (position == 0) {
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.imageViewCategory.getLayoutParams();
-            params.setMargins(0, 100, 0, 0);
-            holder.imageViewCategory.setLayoutParams(params);
-        }
         if (StaticData.getSongsNotPlayedInCategory(position).length() > 0) {
             holder.imageViewCategory.setImageResource(categories.get(position));
         } else {
