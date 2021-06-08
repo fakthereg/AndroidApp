@@ -4,9 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.k1d.wave.R;
@@ -33,6 +35,9 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingView
     @Override
     public void onBindViewHolder(@NonNull RatingViewHolder holder, int position) {
         if (position == 0) {
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.imageViewBackground.getLayoutParams();
+            params.setMargins(0,100,0,0);
+            holder.imageViewBackground.setLayoutParams(params);
             holder.imageViewCrown.setVisibility(View.VISIBLE);
         }
         try {
@@ -55,6 +60,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingView
         private TextView textViewScore;
         private ImageView imageViewCrown;
         private ImageView imageViewAvatar;
+        private ImageView imageViewBackground;
 
         public RatingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,6 +68,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingView
             textViewScore = itemView.findViewById(R.id.textViewRatingItemScore);
             imageViewCrown = itemView.findViewById(R.id.imageViewRatingCrown);
             imageViewAvatar = itemView.findViewById(R.id.imageViewRatingItemAvatar);
+            imageViewBackground = itemView.findViewById(R.id.imageViewRatingItemBackground);
         }
     }
 }

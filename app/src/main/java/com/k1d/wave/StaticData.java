@@ -53,7 +53,7 @@ public final class StaticData {
             case 3:
                 return "Old school";
             case 4:
-                return "Русский поп вне времени";
+                return "Русский поп";
             case 5:
                 return "Латино";
             case 6:
