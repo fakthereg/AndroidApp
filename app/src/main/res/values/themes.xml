@@ -5,7 +5,7 @@
         <item name="android:soundEffectsEnabled">false</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/text_orange</item>
-        <item name="colorPrimaryVariant">@color/text_orange</item>
+        <item name="colorPrimaryVariant">@color/orange_xz</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

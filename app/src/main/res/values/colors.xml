@@ -10,4 +10,6 @@
     <color name="text_green">#8CC63F</color>
     <color name="text_orange">#FF8000</color>
     <color name="text_red">#CC3329</color>
+    <color name="poison">#00ff2f</color>
+    <color name="orange_xz">#ff9e19</color>
 </resources>
