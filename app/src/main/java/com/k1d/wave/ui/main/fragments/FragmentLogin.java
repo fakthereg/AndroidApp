@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.k1d.wave.R;
-import com.k1d.wave.ui.main.MainViewModel;
 
 public class FragmentLogin extends Fragment {
     public static FragmentLogin instance;
-    private MainViewModel mViewModel;
 
 
     public static FragmentLogin getInstance() {

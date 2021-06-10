@@ -41,6 +41,9 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingView
             holder.textViewPlayer.setText(users.getJSONObject(position).getString("name"));
             holder.textViewScore.setText(users.getJSONObject(position).getString("score"));
             holder.imageViewAvatar.setImageResource(User.getAvatarResourceId(users.getJSONObject(position).getInt("avatar")));
+            if (User.name.equals(users.getJSONObject((position)).getString("name"))){
+                User.place = position;
+            }
         } catch (JSONException exception) {
             exception.printStackTrace();
         }
@@ -53,11 +56,11 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingView
 
     public class RatingViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewPlayer;
-        private TextView textViewScore;
-        private ImageView imageViewCrown;
-        private ImageView imageViewAvatar;
-        private ImageView imageViewBackground;
+        private final TextView textViewPlayer;
+        private final TextView textViewScore;
+        private final ImageView imageViewCrown;
+        private final ImageView imageViewAvatar;
+        private final ImageView imageViewBackground;
 
         public RatingViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -6,17 +6,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 public class WampParser
 {
 
-    private WampInterface callbackevents;
+    private final WampInterface callbackevents;
     private String session_key;
     private String authid;
     private String authrole;
-    private String secret;
+    private final String secret;
 
     public WampParser(WampInterface callback, String login, String password)
     {
@@ -58,12 +60,12 @@ public class WampParser
 
                             try
                             {
-                                String secret_key_256 = computeHash(keylen,secret.getBytes("UTF-8"),salt.getBytes("UTF-8"),iterations);
+                                String secret_key_256 = computeHash(keylen,secret.getBytes(StandardCharsets.UTF_8),salt.getBytes(StandardCharsets.UTF_8),iterations);
                                 Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-                                SecretKeySpec secretKey = new SecretKeySpec(secret_key_256.getBytes("UTF-8"), "HmacSHA256");
+                                SecretKeySpec secretKey = new SecretKeySpec(secret_key_256.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
 
                                 sha256_HMAC.init( secretKey);
-                                byte[] hash = sha256_HMAC.doFinal(challenge.getBytes("UTF-8"));
+                                byte[] hash = sha256_HMAC.doFinal(challenge.getBytes(StandardCharsets.UTF_8));
                                 String tesa  = 	    Base64.encodeToString(hash, Base64.NO_WRAP);
                                 callbackevents.onChallenge(tesa);
                             }

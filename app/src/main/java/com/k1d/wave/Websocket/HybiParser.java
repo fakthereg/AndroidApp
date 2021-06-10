@@ -35,15 +35,16 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
 public class HybiParser {
     private static final String TAG = "HybiParser";
 
-    private WebSocketClient mClient;
+    private final WebSocketClient mClient;
 
-    private boolean mMasking = true;
+    private final boolean mMasking = true;
 
     private int     mStage;
 
@@ -59,7 +60,7 @@ public class HybiParser {
 
     private boolean mClosed = false;
 
-    private ByteArrayOutputStream mBuffer = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream mBuffer = new ByteArrayOutputStream();
 
     private static final int BYTE   = 255;
     private static final int FIN    = 128;
@@ -274,7 +275,7 @@ public class HybiParser {
 
         } else if (opcode == OP_TEXT) {
             if (mFinal) {
-                String messageText =  new String(payload,"UTF-8");  //encode(payload);
+                String messageText =  new String(payload, StandardCharsets.UTF_8);  //encode(payload);
                 mClient.onMessage(messageText);
             } else {
                 mMode = MODE_TEXT;
@@ -314,7 +315,7 @@ public class HybiParser {
     private String encode(byte[] buffer) {
         try {
         	        	
-        	String temp = new String(buffer,"UTF-8");
+        	String temp = new String(buffer, StandardCharsets.UTF_8);
             return temp;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -322,11 +323,7 @@ public class HybiParser {
     }
 
     private byte[] decode(String string) {
-        try {
-            return (string).getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return (string).getBytes(StandardCharsets.UTF_8);
     }
 
     private int getInteger(byte[] bytes) throws ProtocolError {

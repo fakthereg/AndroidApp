@@ -127,8 +127,8 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             EditText input_password2 = findViewById(R.id.register_password2);
 
             String login = input_login.getText().toString().toLowerCase().trim();
-            String password = input_password.getText().toString().toLowerCase().trim();
-            String password2 = input_password2.getText().toString().toLowerCase().trim();
+            String password = input_password.getText().toString().trim();
+            String password2 = input_password2.getText().toString().trim();
 
             if (login.equals("") || password.equals("") || password2.equals("")) {
                 Toast.makeText(this, "Заполни все поля!", Toast.LENGTH_SHORT).show();
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             jsonObject = registerTask.execute(StaticData.URL_REGISTER).get();
             username = jsonObject.getString("name");
         } catch (Exception e) {
-            Toast.makeText(this, "Кажется нет интернета..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Проблемы с подключением", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         if (username.equals(User.name)) {
@@ -263,7 +263,6 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             } catch (NullPointerException exception) {
                 exception.printStackTrace();
             }
-            Toast.makeText(this, "" + jsonObject.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -333,11 +332,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     @Override
     protected void onPause() {
         super.onPause();
-        if (mediaPlayer.isPlaying()){
-            isPlaying = true;
-        } else {
-            isPlaying = false;
-        }
+        isPlaying = mediaPlayer.isPlaying();
         playMainTheme(false);
     }
 

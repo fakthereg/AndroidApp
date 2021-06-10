@@ -294,7 +294,7 @@ public class WebSocketClient implements WampInterface
         if (readChar == -1) {
             return null;
         }
-        StringBuilder string = new StringBuilder("");
+        StringBuilder string = new StringBuilder();
         while (readChar != '\n') {
             if (readChar != '\r') {
                 string.append((char) readChar);
@@ -361,43 +361,43 @@ public class WebSocketClient implements WampInterface
 
     @Override
     public void onDisconnect() {
-        this.callback.onDisconnect();
+        callback.onDisconnect();
     }
 
     @Override
     public void onDisconnect(String message) {
-        this.callback.onDisconnect(message);
+        callback.onDisconnect(message);
     }
 
     @Override
     public void onstartConnect() {
-        this.callback.onstartConnect();
+        callback.onstartConnect();
     }
 
     @Override
     public void onConnected() {
-        this.callback.onConnected();
+        callback.onConnected();
     }
 
     @Override
     public void onFailConnect() {
-        this.callback.onFailConnect();
+        callback.onFailConnect();
     }
 
     @Override
     public void onError(Exception ex) {
-        this.callback.onError(ex);
+        callback.onError(ex);
     }
 
     @Override
     public void onError(String message) {
-        this.callback.onError(message);
+        callback.onError(message);
     }
 
     @Override
     public void onMessage(String message) {
 
-        this.parserdata.ParseJson(message);
+        parserdata.ParseJson(message);
 
     }
 
@@ -408,7 +408,7 @@ public class WebSocketClient implements WampInterface
 
     @Override
     public void OnSubscribed(JSONArray message) {
-        this.callback.OnSubscribed(message);
+        callback.OnSubscribed(message);
     }
 
     @Override
@@ -425,11 +425,11 @@ public class WebSocketClient implements WampInterface
 
     @Override
     public void onEvent(JSONArray message) {
-        this.callback.onEvent(message);
+        callback.onEvent(message);
     }
 
     @Override
     public void onErrorEvent(JSONArray message) {
-        this.callback.onErrorEvent(message);
+        callback.onErrorEvent(message);
     }
 }

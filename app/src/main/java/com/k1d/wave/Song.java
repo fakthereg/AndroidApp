@@ -3,20 +3,20 @@ package com.k1d.wave;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class File {
+public class Song {
     private String artist;
     private String title;
     private String filename;
     private String category;
 
-    public File(String artist, String title, String filename, String category) {
+    public Song(String artist, String title, String filename, String category) {
         this.artist = artist;
         this.title = title;
         this.filename = filename;
         this.category = category;
     }
 
-    public File(JSONObject jsonObject) {
+    public Song(JSONObject jsonObject) {
         try {
             this.artist = jsonObject.getString("artist");
             this.title = jsonObject.getString("title");

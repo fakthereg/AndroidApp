@@ -26,11 +26,5 @@ public class FragmentRegisterOne extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register_one, container, false);
         return view;
     }
-
-
-    @Override
-    public void onViewCreated( View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
+    
 }

@@ -28,9 +28,9 @@ public enum WampEvents
     INTERRUPT(69),
     YIELD(70);
 
-    private int code;
+    private final int code;
 
-    private WampEvents(int c)
+    WampEvents(int c)
     {
         code = c;
     }

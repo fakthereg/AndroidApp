@@ -10,9 +10,9 @@ public enum WampCommands
     ;
 
 
-    private int code;
+    private final int code;
 
-    private WampCommands(int c)
+    WampCommands(int c)
     {
         code = c;
     }

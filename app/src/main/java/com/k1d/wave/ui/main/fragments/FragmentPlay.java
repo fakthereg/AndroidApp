@@ -223,7 +223,6 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
             postSongToPlayed();
             StaticData.answered = true;
         }
-        //TODO     maybe wait 1 sec? Thread.sleep not working, must not be used
         if (view.getId() == R.id.imageViewPlaySongBackground1) {
             StaticData.chosenSongArtist = textViewArtist1.getText().toString();
             StaticData.chosenSongTitle = textViewTitle1.getText().toString();

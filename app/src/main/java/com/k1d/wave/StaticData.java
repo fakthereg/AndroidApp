@@ -28,16 +28,14 @@ public final class StaticData {
 
     public static JSONArray allSongs = new JSONArray();
     public static JSONArray playedSongs = new JSONArray();
-    public static JSONArray songsNotPlayedInChosenCategory = new JSONArray();
     public static int songsLeftInChosenCategory = 0;
-    //public static JSONArray allSongsInCategory = new JSONArray();
-    //   public static JSONArray songsPlayedInCategory = new JSONArray();
     public static int chosenCategory = 0;
     public static String chosenSongArtist = "";
     public static String chosenSongTitle = "";
     public static boolean currentAnswer = false;
     public static int scoreGain = 0;
     public static boolean answered = false;
+
     //   public static final String wsUri = "wss://?"; //??
     //   public static final String AUTHENTICATE_URL = "com.system.authenticate";
     //   public static final String AUTHORIZE_URL = "com.system.authorize";
@@ -86,30 +84,6 @@ public final class StaticData {
         }
         songsLeftInChosenCategory = allSongsInCategory.length();
         return allSongsInCategory;
-      /*  HashSet<JSONObject> hashSetAllSongsInCategory = new HashSet<>();
-        HashSet<JSONObject> hashSetPlayedSongsInCategory = new HashSet<>();
-        JSONArray allSongsInCategory = getAllSongsInCategory(category);
-        JSONArray playedSongsInCategory = getPlayedSongsInCategory(category);
-        try {
-            for (int i = 0; i < allSongsInCategory.length(); i++) {
-                hashSetAllSongsInCategory.add(allSongsInCategory.getJSONObject(i));
-            }
-            for (int j = 0; j < playedSongsInCategory.length(); j++) {
-                hashSetPlayedSongsInCategory.add(allSongsInCategory.getJSONObject(j));
-            }
-        } catch (JSONException exception) {
-            exception.printStackTrace();
-        }
-        for (JSONObject jsonObject : hashSetPlayedSongsInCategory) {
-
-            hashSetAllSongsInCategory.remove(jsonObject);
-
-        }
-        //  hashSetAllSongsInCategory.removeAll(hashSetPlayedSongsInCategory);
-        JSONArray result = new JSONArray(hashSetAllSongsInCategory);
-        songsLeftInChosenCategory = result.length();
-        Log.i(LOG_TAG, "getSongsNotPlayedInCategory returned:   category: " + category + "  result: " + result.toString());
-        return result;*/
     }
 
 

@@ -27,8 +27,6 @@ public class FragmentPanels extends Fragment {
         View view = inflater.inflate(R.layout.fragment_panels, container, false);
         TextView textViewScore = view.findViewById(R.id.top_panel_score);
         textViewScore.setText(String.valueOf(User.score));
-        Log.i("mytag", "fragmentpanels oncreateview");
         return view;
-
     }
 }

@@ -63,11 +63,6 @@ public class FragmentCategory extends Fragment {
         RecyclerView recyclerViewCategories = this.getView().findViewById(R.id.recyclerViewCategory);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewCategories.setAdapter(adapter);
-     //   adapter.notifyDataSetChanged();
-        //TODO загрузить список всех песен по категориям +
-        // загрузить список сыгранных песен по категориям +
-        // засунуть в статикДата +
-        // покрасить пустые категории в чето другое ???
         NetworkUtils.ConnectGetTask getAllSongs = new NetworkUtils.ConnectGetTask();
         NetworkUtils.ConnectGetTask getPlayedSongs = new NetworkUtils.ConnectGetTask();
         JSONArray playedSongs = new JSONArray();
