@@ -42,7 +42,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         categories_bw.put(2, R.drawable.category_foreign_rock_bw);
         categories_bw.put(3, R.drawable.category_oldschool_bw);
         categories_bw.put(4, R.drawable.category_russian_pop_bw);
-        categories_bw.put(5, R.drawable.category_latino_bw);
+        categories_bw.put(5, R.drawable.category_espanol_bw);
         categories_bw.put(6, R.drawable.category_zashkvar_bw);
         categories_bw.put(7, R.drawable.category_foreign_pop_bw);
         categories_bw.put(8, R.drawable.category_rap_bw);

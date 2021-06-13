@@ -11,6 +11,7 @@ import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        //      client = WebSocketClient.getInstance();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.container);
         soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
@@ -85,8 +86,8 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 request_perm.add(Manifest.permission.READ_EXTERNAL_STORAGE);
             }
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                request_perm.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED) {
+                request_perm.add(Manifest.permission.WAKE_LOCK);
             }
             if (request_perm.size() > 0) {
                 String[] arr_req = new String[request_perm.size()];

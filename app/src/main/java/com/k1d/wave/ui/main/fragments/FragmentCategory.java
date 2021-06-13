@@ -55,7 +55,7 @@ public class FragmentCategory extends Fragment {
         categories.put(2, R.drawable.category_foreign_rock);
         categories.put(3, R.drawable.category_oldschool);
         categories.put(4, R.drawable.category_russian_pop);
-        categories.put(5, R.drawable.category_latino);
+        categories.put(5, R.drawable.category_espanol);
         categories.put(6, R.drawable.category_zashkvar);
         categories.put(7, R.drawable.category_foreign_pop);
         categories.put(8, R.drawable.category_rap);

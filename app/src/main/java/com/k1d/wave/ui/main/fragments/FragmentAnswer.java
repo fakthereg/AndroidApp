@@ -30,12 +30,14 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
     private TextView textViewArtist;
     private TextView textViewTitle;
     private ImageView imageViewCup;
-    private ImageView imageViewCloud;
     private TextView textViewScoreGain;
     private ImageView imageViewCoin;
     private ImageButton imageButtonBack;
     private ImageButton imageButtonNext;
     private LottieAnimationView lottieAnimationViewSerp;
+    private LottieAnimationView lottieAnimationViewSerpRain;
+    private LottieAnimationView lottieAnimationViewRain;
+
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,12 +50,13 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
         imageViewAvatar = view.findViewById(R.id.imageViewAnswerAvatar);
         imageViewSongBackground = view.findViewById(R.id.imageViewAnswerSongBackground);
         imageViewCup = view.findViewById(R.id.imageViewAnswerCup);
-        imageViewCloud = view.findViewById(R.id.imageViewAnswerCloud);
         textViewScoreGain = view.findViewById(R.id.textViewScoreGain);
         imageViewCoin = view.findViewById(R.id.imageViewAnswerCoin);
         imageButtonBack = view.findViewById(R.id.imageButtonAnswerBack);
         imageButtonNext = view.findViewById(R.id.imageButtonAnswerNext);
         lottieAnimationViewSerp = view.findViewById(R.id.lottieAnimationViewSerp);
+        lottieAnimationViewSerpRain = view.findViewById(R.id.lottieAnimationViewSerpRain);
+        lottieAnimationViewRain = view.findViewById(R.id.lottieAnimationViewRain);
         return view;
     }
 
@@ -78,23 +81,24 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
         if (StaticData.answered) {
             if (StaticData.currentAnswer) {
                 lottieAnimationViewSerp.setVisibility(View.VISIBLE);
+                lottieAnimationViewSerpRain.setVisibility(View.VISIBLE);
                 imageViewCup.setImageResource(R.drawable.cup_win);
-                imageViewCloud.setVisibility(View.INVISIBLE);
+                lottieAnimationViewRain.setVisibility(View.INVISIBLE);
                 imageViewSongBackground.setImageResource(R.drawable.song_background_win);
                 imageViewCoin.setVisibility(View.VISIBLE);
                 textViewScoreGain.setVisibility(View.VISIBLE);
                 textViewScoreGain.setText(String.valueOf(StaticData.scoreGain));
             } else {
                 imageViewCup.setImageResource(R.drawable.cup_lose);
-                imageViewCloud.setVisibility(View.VISIBLE);
+                lottieAnimationViewRain.setVisibility(View.VISIBLE);
                 imageViewSongBackground.setImageResource(R.drawable.song_background_lose);
                 imageViewCoin.setVisibility(View.INVISIBLE);
                 textViewScoreGain.setVisibility(View.INVISIBLE);
             }
         } else {
             imageViewCup.setImageResource(R.drawable.cup_lose);
-            imageViewCloud.setVisibility(View.VISIBLE);
-            imageViewSongBackground.setImageResource(R.drawable.song_background_lose);
+            lottieAnimationViewRain.setVisibility(View.VISIBLE);
+            imageViewSongBackground.setImageResource(R.drawable.song_background_neutral);
             imageViewCoin.setVisibility(View.INVISIBLE);
             textViewScoreGain.setVisibility(View.INVISIBLE);
         }

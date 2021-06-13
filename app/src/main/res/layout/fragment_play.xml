@@ -5,6 +5,91 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewEqLeftLeft"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:scaleY="2"
+        app:layout_constraintBottom_toBottomOf="@id/textViewPlayTimer"
+        app:layout_constraintEnd_toStartOf="@id/lottieAnimationViewEqLeft"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewPlayTimer"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="equalizer.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true"
+        app:lottie_scale="1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewEqLeft"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
+        android:scaleY="2.5"
+        app:layout_constraintBottom_toBottomOf="@id/textViewPlayTimer"
+        app:layout_constraintEnd_toStartOf="@id/lottieAnimationViewEqCenter"
+        app:layout_constraintHorizontal_weight="1.25"
+        app:layout_constraintStart_toEndOf="@id/lottieAnimationViewEqLeftLeft"
+        app:layout_constraintTop_toTopOf="@id/textViewPlayTimer"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="equalizer.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true"
+        app:lottie_scale="1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewEqCenter"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
+        android:scaleY="3"
+        app:layout_constraintBottom_toBottomOf="@id/textViewPlayTimer"
+        app:layout_constraintEnd_toStartOf="@id/lottieAnimationViewEqRight"
+        app:layout_constraintHorizontal_weight="1.6"
+        app:layout_constraintStart_toEndOf="@id/lottieAnimationViewEqLeft"
+        app:layout_constraintTop_toTopOf="@id/textViewPlayTimer"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="equalizer.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true"
+        app:lottie_scale="1" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewEqRight"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
+        android:scaleY="2.5"
+        app:layout_constraintBottom_toBottomOf="@id/textViewPlayTimer"
+        app:layout_constraintEnd_toStartOf="@id/lottieAnimationViewEqRightRight"
+        app:layout_constraintHorizontal_weight="1.25"
+        app:layout_constraintStart_toEndOf="@id/lottieAnimationViewEqCenter"
+        app:layout_constraintTop_toTopOf="@id/textViewPlayTimer"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="equalizer.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true"
+        app:lottie_scale="1" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewEqRightRight"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:scaleY="2"
+        app:layout_constraintBottom_toBottomOf="@id/textViewPlayTimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/lottieAnimationViewEqRight"
+        app:layout_constraintTop_toTopOf="@id/textViewPlayTimer"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="equalizer.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true"
+        app:lottie_scale="1" />
+
     <ImageView
         android:id="@+id/imageViewPlayHeader"
         android:layout_width="0dp"
@@ -68,7 +153,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:capitalize="characters"
         android:fontFamily="@font/garetheavy"
         android:text="TextView"
         android:textColor="@color/white"
@@ -76,6 +160,16 @@
         app:layout_constraintEnd_toEndOf="@+id/imageViewPlayHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPlayAvatar" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPlayTimer"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPlayTimer"
+        app:layout_constraintStart_toStartOf="@+id/textViewPlayTimer"
+        app:layout_constraintTop_toTopOf="@+id/textViewPlayTimer"
+        app:srcCompat="@drawable/play_background_only_circle" />
 
     <ImageView
         android:id="@+id/imageViewPlayBackground"
@@ -87,7 +181,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPlayHeader"
-        app:srcCompat="@drawable/play_background_no_arrow" />
+        app:srcCompat="@drawable/play_background_no_arrow"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/imageViewPlaySongBackground1"
@@ -234,21 +329,20 @@
         android:text="30"
         android:textColor="#FFFFFF"
         android:textSize="@dimen/_34ssp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPlayBackground"
         app:layout_constraintEnd_toEndOf="@+id/imageViewPlayBackground"
         app:layout_constraintStart_toStartOf="@+id/imageViewPlayBackground"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPlayBackground"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="@+id/imageViewPlayBackground" />
 
     <ProgressBar
         android:id="@+id/progressBarLoading"
         android:layout_width="42dp"
         android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPlayTimer"
         app:layout_constraintEnd_toEndOf="@+id/textViewPlayTimer"
         app:layout_constraintStart_toStartOf="@+id/textViewPlayTimer"
-        app:layout_constraintTop_toTopOf="@+id/textViewPlayTimer"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewPlayTimer"
-        />
+        app:layout_constraintTop_toTopOf="@+id/textViewPlayTimer" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"

@@ -191,8 +191,6 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
             if (i == correctPosition) {
                 artists.get(i).setText(songToGuess.getString("artist"));
                 titles.get(i).setText(songToGuess.getString("title"));
-                Log.i("mytag", "correct index = " + correctIndex + "\ncorrect set to " + songToGuess.toString());
-  //              Toast.makeText(getContext(), songToGuess.getString("filename"), Toast.LENGTH_SHORT).show();
             } else {
                 int wrongIndex;
                 do {
@@ -200,7 +198,6 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
                 } while (allSongs.getJSONObject(wrongIndex).getString("filename").equals(songToGuess.getString("filename")) ||
                         (usedWrongIndex != -1 && allSongs.getJSONObject(wrongIndex).getString("filename").equals(allSongs.getJSONObject(usedWrongIndex).getString("filename"))));
                 usedWrongIndex = wrongIndex;
-                Log.i("mytag", "wron index = " + wrongIndex + "\nwrong set to " + allSongs.get(wrongIndex).toString());
                 artists.get(i).setText(allSongs.getJSONObject(wrongIndex).getString("artist"));
                 titles.get(i).setText(allSongs.getJSONObject(wrongIndex).getString("title"));
             }
@@ -316,4 +313,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         super.onDestroy();
         mediaPlayer.stop();
     }
+
+
+
 }

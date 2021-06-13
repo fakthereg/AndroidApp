@@ -4,6 +4,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewSerp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="confetti.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_speed="1.5" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewSerpRain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewAnswerCup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewAnswerCup"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="confetti_rain.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true"
+        app:lottie_speed="1.5" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewRain"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_300sdp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView10"
+        app:layout_constraintVertical_bias="0.60"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="only_rain.json"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_loop="true"
+        android:scaleType="fitXY"
+        app:lottie_speed="1.2" />
+
+
     <ImageView
         android:id="@+id/imageViewAnswerSongBackground"
         android:layout_width="wrap_content"
@@ -13,20 +59,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewAnswerCup"
         app:srcCompat="@drawable/song_background_win" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationViewSerp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_speed="1.5"
-        app:lottie_fileName="confetti.json"
-        app:lottie_imageAssetsFolder="assets"
-        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/imageViewAnswerCup"
@@ -91,9 +123,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewAnswerAvatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/imageViewAnswerAvatar"
-        app:layout_constraintBottom_toBottomOf="@id/imageViewAnswerAvatar"
         app:srcCompat="@drawable/coin" />
 
     <TextView
@@ -156,19 +188,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/imageViewAnswerSongBackground"
         app:layout_constraintTop_toBottomOf="@+id/textViewAnswerArtist" />
-
-    <ImageView
-        android:id="@+id/imageViewAnswerCloud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewAnswerCup"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewAnswerCup"
-        app:layout_constraintStart_toStartOf="@+id/imageViewAnswerCup"
-        app:layout_constraintTop_toTopOf="@+id/imageViewAnswerCup"
-        app:layout_constraintVertical_bias="0.75"
-        app:srcCompat="@drawable/cloud" />
 
     <ImageView
         android:id="@+id/imageViewAnswerCoin"
