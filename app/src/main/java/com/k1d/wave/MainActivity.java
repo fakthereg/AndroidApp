@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             EditText passwordInput = findViewById(R.id.login_password);
             if (loginInput != null && passwordInput != null) {
                 String login = loginInput.getText().toString().toLowerCase().trim();
-                String password = passwordInput.getText().toString().toLowerCase().trim();
+                String password = passwordInput.getText().toString().trim();
                 JSONArray userList = new JSONArray(getAllUsersTask.execute(StaticData.URL_GET_ALL_USERS).get());
                 for (int i = 0; i < userList.length(); i++) {
                     if (login.equals(userList.getString(i))) {
