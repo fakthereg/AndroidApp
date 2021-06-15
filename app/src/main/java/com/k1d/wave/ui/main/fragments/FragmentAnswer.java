@@ -107,6 +107,7 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        MainActivity.stopPlayingSounds();
         MainActivity.playButtonClickSound();
         if (v.getId() == R.id.imageButtonAnswerNext && StaticData.songsLeftInChosenCategory > 1) {
             getFragmentManager().beginTransaction().replace(R.id.container, new FragmentPlay()).commit();

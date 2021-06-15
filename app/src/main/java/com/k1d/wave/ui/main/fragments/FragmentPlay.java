@@ -313,7 +313,4 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         super.onDestroy();
         mediaPlayer.stop();
     }
-
-
-
 }

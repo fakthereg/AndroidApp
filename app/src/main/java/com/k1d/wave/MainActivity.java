@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     private boolean isPlaying;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -357,4 +358,9 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             mediaPlayer.start();
         }
     }
+    public static void stopPlayingSounds() {
+        soundPool.stop(soundIdCorrect);
+        soundPool.stop(soundIdWrong);
+    }
+
 }
