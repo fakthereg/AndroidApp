@@ -26,9 +26,12 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
     private TextView textViewUsername;
     private TextView textViewScore;
     private ImageView imageViewAvatar;
-    private ImageView imageViewSongBackground;
-    private TextView textViewArtist;
-    private TextView textViewTitle;
+    private ImageView imageViewSongBackgroundCorrect;
+    private ImageView imageViewSongBackgroundWrong;
+    private TextView textViewArtistCorrect;
+    private TextView textViewTitleCorrect;
+    private TextView textViewArtistWrong;
+    private TextView textViewTitleWrong;
     private ImageView imageViewCup;
     private TextView textViewScoreGain;
     private ImageView imageViewCoin;
@@ -45,10 +48,13 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
         textViewCategory = view.findViewById(R.id.textViewAnswerCategory);
         textViewUsername = view.findViewById(R.id.textViewAnswerUsername);
         textViewScore = view.findViewById(R.id.textViewAnswerScore);
-        textViewArtist = view.findViewById(R.id.textViewAnswerArtist);
-        textViewTitle = view.findViewById(R.id.textViewAnswerTitle);
+        textViewArtistCorrect = view.findViewById(R.id.textViewAnswerArtistCorrect);
+        textViewTitleCorrect = view.findViewById(R.id.textViewAnswerTitleCorrect);
+        textViewArtistWrong = view.findViewById(R.id.textViewAnswerArtistWrong);
+        textViewTitleWrong = view.findViewById(R.id.textViewAnswerTitleWrong);
         imageViewAvatar = view.findViewById(R.id.imageViewAnswerAvatar);
-        imageViewSongBackground = view.findViewById(R.id.imageViewAnswerSongBackground);
+        imageViewSongBackgroundCorrect = view.findViewById(R.id.imageViewAnswerSongBackgroundCorrect);
+        imageViewSongBackgroundWrong = view.findViewById(R.id.imageViewAnswerSongBackgroundWrong);
         imageViewCup = view.findViewById(R.id.imageViewAnswerCup);
         textViewScoreGain = view.findViewById(R.id.textViewScoreGain);
         imageViewCoin = view.findViewById(R.id.imageViewAnswerCoin);
@@ -74,31 +80,37 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
         imageButtonBack.setOnClickListener(this);
         imageViewAvatar.setImageResource(User.avatar);
         textViewUsername.setText(User.name);
-        textViewCategory.setText(StaticData.getChosenCategory().toUpperCase());
+        textViewCategory.setText(StaticData.getCategoryAsString(StaticData.chosenCategory).toUpperCase());
         textViewScore.setText(String.valueOf(User.score));
-        textViewArtist.setText(StaticData.chosenSongArtist);
-        textViewTitle.setText(StaticData.chosenSongTitle);
+        try{
+        textViewArtistCorrect.setText(StaticData.songToGuess.getString("artist"));
+        textViewTitleCorrect.setText(StaticData.songToGuess.getString("title"));}
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
         if (StaticData.answered) {
-            if (StaticData.currentAnswer) {
+            if (StaticData.answerIsCorrect) {
                 lottieAnimationViewSerp.setVisibility(View.VISIBLE);
                 lottieAnimationViewSerpRain.setVisibility(View.VISIBLE);
                 imageViewCup.setImageResource(R.drawable.cup_win);
-                lottieAnimationViewRain.setVisibility(View.INVISIBLE);
-                imageViewSongBackground.setImageResource(R.drawable.song_background_win);
+                imageViewSongBackgroundCorrect.setImageResource(R.drawable.song_background_win);
                 imageViewCoin.setVisibility(View.VISIBLE);
                 textViewScoreGain.setVisibility(View.VISIBLE);
                 textViewScoreGain.setText(String.valueOf(StaticData.scoreGain));
             } else {
+                imageViewSongBackgroundWrong.setVisibility(View.VISIBLE);
+                textViewArtistWrong.setText(StaticData.chosenSongArtist);
+                textViewTitleWrong.setText(StaticData.chosenSongTitle);
                 imageViewCup.setImageResource(R.drawable.cup_lose);
                 lottieAnimationViewRain.setVisibility(View.VISIBLE);
-                imageViewSongBackground.setImageResource(R.drawable.song_background_lose);
+                imageViewSongBackgroundCorrect.setImageResource(R.drawable.song_background_win);
                 imageViewCoin.setVisibility(View.INVISIBLE);
                 textViewScoreGain.setVisibility(View.INVISIBLE);
             }
         } else {
             imageViewCup.setImageResource(R.drawable.cup_lose);
             lottieAnimationViewRain.setVisibility(View.VISIBLE);
-            imageViewSongBackground.setImageResource(R.drawable.song_background_neutral);
+            imageViewSongBackgroundCorrect.setImageResource(R.drawable.song_background_neutral);
             imageViewCoin.setVisibility(View.INVISIBLE);
             textViewScoreGain.setVisibility(View.INVISIBLE);
         }

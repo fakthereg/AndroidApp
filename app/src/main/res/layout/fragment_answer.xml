@@ -37,6 +37,7 @@
         android:id="@+id/lottieAnimationViewRain"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_300sdp"
+        android:scaleType="fitXY"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,30 +47,7 @@
         app:lottie_fileName="only_rain.json"
         app:lottie_imageAssetsFolder="assets"
         app:lottie_loop="true"
-        android:scaleType="fitXY"
         app:lottie_speed="1.2" />
-
-
-    <ImageView
-        android:id="@+id/imageViewAnswerSongBackground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/imageButtonAnswerBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewAnswerCup"
-        app:srcCompat="@drawable/song_background_win" />
-
-    <ImageView
-        android:id="@+id/imageViewAnswerCup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/imageButtonAnswerBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10"
-        app:layout_constraintVertical_bias="0.25"
-        app:srcCompat="@drawable/cup_win" />
 
     <ImageView
         android:id="@+id/imageView10"
@@ -81,6 +59,96 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/play_header" />
+
+    <ImageView
+        android:id="@+id/imageViewAnswerSongBackgroundWrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewAnswerSongBackgroundCorrect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAnswerCup"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/song_background_lose" />
+
+    <TextView
+        android:id="@+id/textViewAnswerArtistWrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAnswerTitleWrong"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAnswerSongBackgroundWrong"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewAnswerSongBackgroundWrong"
+        app:layout_constraintTop_toTopOf="@+id/imageViewAnswerSongBackgroundWrong" />
+
+    <TextView
+        android:id="@+id/textViewAnswerTitleWrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewAnswerSongBackgroundWrong"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAnswerSongBackgroundWrong"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewAnswerSongBackgroundWrong"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAnswerArtistWrong" />
+
+    <ImageView
+        android:id="@+id/imageViewAnswerSongBackgroundCorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonAnswerBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAnswerSongBackgroundWrong"
+        app:srcCompat="@drawable/song_background_win" />
+
+
+    <TextView
+        android:id="@+id/textViewAnswerArtistCorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAnswerTitleCorrect"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAnswerSongBackgroundCorrect"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewAnswerSongBackgroundCorrect"
+        app:layout_constraintTop_toTopOf="@+id/imageViewAnswerSongBackgroundCorrect" />
+
+    <TextView
+        android:id="@+id/textViewAnswerTitleCorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewAnswerSongBackgroundCorrect"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAnswerSongBackgroundCorrect"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewAnswerSongBackgroundCorrect"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAnswerArtistCorrect" />
+
+    <ImageView
+        android:id="@+id/imageViewAnswerCup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonAnswerBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="0.25"
+        app:srcCompat="@drawable/cup_win" />
 
     <TextView
         android:id="@+id/textViewAnswerCategory"
@@ -161,34 +229,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/prev_button" />
 
-    <TextView
-        android:id="@+id/textViewAnswerArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/_18sdp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAnswerTitle"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewAnswerSongBackground"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/imageViewAnswerSongBackground"
-        app:layout_constraintTop_toTopOf="@+id/imageViewAnswerSongBackground" />
-
-    <TextView
-        android:id="@+id/textViewAnswerTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/_18sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewAnswerSongBackground"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewAnswerSongBackground"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/imageViewAnswerSongBackground"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAnswerArtist" />
-
     <ImageView
         android:id="@+id/imageViewAnswerCoin"
         android:layout_width="wrap_content"
@@ -219,4 +259,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.03" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

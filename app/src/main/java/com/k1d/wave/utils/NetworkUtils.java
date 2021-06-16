@@ -154,27 +154,4 @@ public class NetworkUtils {
         }
     }
 
-    public static class DownloadFileTask extends AsyncTask<String, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            String category = strings[0];
-            String filename = strings[1];
-            URL url = null;
-            HttpURLConnection urlConnection = null;
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-    }
 }

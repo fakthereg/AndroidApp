@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     private boolean isPlaying;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +135,8 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
                 Toast.makeText(this, "Заполни все поля!", Toast.LENGTH_SHORT).show();
             } else if (!password.equals(password2)) {
                 Toast.makeText(this, "Пароли не совпадают!", Toast.LENGTH_SHORT).show();
+            } else if (login.length() > 10) {
+                Toast.makeText(this, "Имя пользователя не больше 10 символов!", Toast.LENGTH_SHORT).show();
             } else {
                 User.name = login;
                 User.password = password;
@@ -215,6 +216,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             showExitDialog();
 
         }
+
     }
 
     private void showExitDialog() {
@@ -327,8 +329,9 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     @Override
     protected void onResume() {
         super.onResume();
-        if (isPlaying){
-        playMainTheme(true);}
+        if (isPlaying) {
+            playMainTheme(true);
+        }
     }
 
     @Override
@@ -358,9 +361,24 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
             mediaPlayer.start();
         }
     }
+
     public static void stopPlayingSounds() {
         soundPool.stop(soundIdCorrect);
         soundPool.stop(soundIdWrong);
     }
 
+    public static void loadSongs () {
+        NetworkUtils.ConnectGetTask getAllSongs = new NetworkUtils.ConnectGetTask();
+        NetworkUtils.ConnectGetTask getPlayedSongs = new NetworkUtils.ConnectGetTask();
+        JSONArray playedSongs = new JSONArray();
+        JSONArray allSongs = new JSONArray();
+        try {
+            allSongs = new JSONArray(getAllSongs.execute(StaticData.URL_REST_BASE_FILES).get());
+            playedSongs = new JSONArray(getPlayedSongs.execute(String.format(StaticData.URL_GET_PLAYED_BY_USER, User.name)).get());
+            StaticData.playedSongs = playedSongs;
+            StaticData.allSongs = allSongs;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

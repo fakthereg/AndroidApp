@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.k1d.wave.MainActivity;
 import com.k1d.wave.R;
 import com.k1d.wave.User;
 
@@ -31,6 +32,7 @@ public class FragmentLoggedIn extends Fragment {
         String settext = "Привет, " + User.name.substring(0, 1).toUpperCase() + User.name.substring(1) + "!";
         avatar.setImageResource(User.avatar);
         hello_username.setText(settext);
+        MainActivity.loadSongs();
         return view;
 
     }

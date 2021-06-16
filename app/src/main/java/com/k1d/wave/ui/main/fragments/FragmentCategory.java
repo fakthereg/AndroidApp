@@ -63,18 +63,6 @@ public class FragmentCategory extends Fragment {
         RecyclerView recyclerViewCategories = this.getView().findViewById(R.id.recyclerViewCategory);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewCategories.setAdapter(adapter);
-        NetworkUtils.ConnectGetTask getAllSongs = new NetworkUtils.ConnectGetTask();
-        NetworkUtils.ConnectGetTask getPlayedSongs = new NetworkUtils.ConnectGetTask();
-        JSONArray playedSongs = new JSONArray();
-        JSONArray allSongs = new JSONArray();
-        try {
-            allSongs = new JSONArray(getAllSongs.execute(StaticData.URL_REST_BASE_FILES).get());
-            playedSongs = new JSONArray(getPlayedSongs.execute(String.format(StaticData.URL_GET_PLAYED_BY_USER, User.name)).get());
-            StaticData.playedSongs = playedSongs;
-            StaticData.allSongs = allSongs;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         adapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
             @Override
             public void onCategoryClick(int position) {

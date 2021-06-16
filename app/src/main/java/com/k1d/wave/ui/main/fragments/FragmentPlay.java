@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,7 +51,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
 
     private JSONArray notPlayedSongs;
     private JSONArray allSongs;
-    private JSONObject songToGuess;
+
     private int correctIndex;
     private int correctPosition;
     ArrayList<TextView> artists = new ArrayList<>();
@@ -115,12 +114,12 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         imageViewAvatar.setImageResource(User.avatar);
         textViewUsername.setText(User.name);
         textViewScore.setText(String.valueOf(User.score));
-        textViewCategory.setText(StaticData.getChosenCategory().toUpperCase());
+        textViewCategory.setText(StaticData.getCategoryAsString(StaticData.chosenCategory).toUpperCase());
         notPlayedSongs = StaticData.getSongsNotPlayedInCategory(StaticData.chosenCategory);
         allSongs = StaticData.getAllSongsInCategory(StaticData.chosenCategory);
         try {
             correctIndex = (int) (Math.random() * StaticData.songsLeftInChosenCategory);
-            songToGuess = notPlayedSongs.getJSONObject(correctIndex);
+            StaticData.songToGuess = notPlayedSongs.getJSONObject(correctIndex);
             play();
         } catch (JSONException exception) {
             exception.printStackTrace();
@@ -143,12 +142,11 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
             public void onFinish() {
                 StaticData.answered = false;
                 try {
-                    StaticData.chosenSongArtist = songToGuess.getString("artist");
-                    StaticData.chosenSongTitle = songToGuess.getString("title");
+                    StaticData.chosenSongArtist = StaticData.songToGuess.getString("artist");
+                    StaticData.chosenSongTitle = StaticData.songToGuess.getString("title");
                 } catch (JSONException exception) {
                     exception.printStackTrace();
                 }
-
                 mediaPlayer.stop();
                 isPlaying = false;
                 postSongToPlayed();
@@ -157,7 +155,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         };
 
         try {
-            stringUrlToSong = String.format(StaticData.URL_DOWNLOAD_FILE, StaticData.chosenCategory, songToGuess.getString("filename"));
+            stringUrlToSong = String.format(StaticData.URL_DOWNLOAD_FILE, StaticData.chosenCategory, StaticData.songToGuess.getString("filename"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -189,13 +187,13 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         for (int i = 0; i < 3; i++) {
             Log.i("mytag", "i = " + i);
             if (i == correctPosition) {
-                artists.get(i).setText(songToGuess.getString("artist"));
-                titles.get(i).setText(songToGuess.getString("title"));
+                artists.get(i).setText(StaticData.songToGuess.getString("artist"));
+                titles.get(i).setText(StaticData.songToGuess.getString("title"));
             } else {
                 int wrongIndex;
                 do {
                     wrongIndex = (int) (Math.random() * allSongs.length());
-                } while (allSongs.getJSONObject(wrongIndex).getString("filename").equals(songToGuess.getString("filename")) ||
+                } while (allSongs.getJSONObject(wrongIndex).getString("filename").equals(StaticData.songToGuess.getString("filename")) ||
                         (usedWrongIndex != -1 && allSongs.getJSONObject(wrongIndex).getString("filename").equals(allSongs.getJSONObject(usedWrongIndex).getString("filename"))));
                 usedWrongIndex = wrongIndex;
                 artists.get(i).setText(allSongs.getJSONObject(wrongIndex).getString("artist"));
@@ -248,7 +246,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     }
 
     private void answerWrong(View view) {
-        StaticData.currentAnswer = false;
+        StaticData.answerIsCorrect = false;
         User.wrong++;
         ImageView imageView = (ImageView) view;
         imageView.setImageResource(R.drawable.song_background_wrong);
@@ -258,7 +256,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     }
 
     private void answerCorrect(View view) {
-        StaticData.currentAnswer = true;
+        StaticData.answerIsCorrect = true;
         User.score += StaticData.scoreGain;
         User.correct++;
         ImageView imageView = (ImageView) view;
@@ -282,10 +280,12 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     }
 
     private void postSongToPlayed() {
-        StaticData.playedSongs.put(songToGuess);
+        StaticData.playedSongs.put(StaticData.songToGuess);
         NetworkUtils.ConnectPostTask addToPlayed = new NetworkUtils.ConnectPostTask();
         try {
-            addToPlayed.execute(String.format(StaticData.URL_USER_ADD_TO_PLAYED, User.name), songToGuess.toString());
+            StaticData.songToGuess.put("answered", StaticData.answered);
+            StaticData.songToGuess.put("correct", StaticData.answerIsCorrect);
+            addToPlayed.execute(String.format(StaticData.URL_USER_ADD_TO_PLAYED, User.name), StaticData.songToGuess.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

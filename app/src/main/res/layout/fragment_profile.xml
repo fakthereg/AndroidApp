@@ -1,171 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:srcCompat="@drawable/coin_gif">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline12"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+        app:srcCompat="@drawable/coin_gif">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.935" />
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_avatar"
-        app:layout_constraintEnd_toEndOf="@+id/profile_avatar"
-        app:layout_constraintStart_toStartOf="@+id/profile_avatar"
-        app:layout_constraintTop_toTopOf="@+id/profile_avatar"
-        app:srcCompat="@drawable/avatar_background" />
+        <ImageView
+            android:id="@+id/imageViewAvatarBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="@dimen/_70ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/avatar_background" />
 
-    <ImageView
-        android:id="@+id/profile_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/avatar1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+        <ImageView
+            android:id="@+id/ImageViewProfileAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/avatar1"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewAvatarBackground"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewAvatarBackground"
+            app:layout_constraintStart_toStartOf="@+id/imageViewAvatarBackground"
+            app:layout_constraintTop_toTopOf="@+id/imageViewAvatarBackground" />
 
-    <TextView
-        android:id="@+id/profile_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:fontFamily="@font/garetheavy"
-        android:text="%username%"
-        android:textAllCaps="true"
-        android:textColor="#FF9800"
-        android:textSize="@dimen/_20ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_avatar"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/profile_avatar" />
+        <TextView
+            android:id="@+id/textViewProfileUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/garetheavy"
+            android:text="%username%"
+            android:textAllCaps="true"
+            android:textColor="#FF9800"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/ImageViewProfileAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ImageViewProfileAvatar" />
 
-    <TextView
-        android:id="@+id/profile_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/garetheavy"
-        android:text="1500"
-        android:textSize="@dimen/_15ssp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_avatar"
-        app:layout_constraintStart_toStartOf="@+id/profile_username"
-        app:layout_constraintTop_toBottomOf="@+id/profile_username" />
+        <ImageView
+            android:id="@+id/imageViewProfileCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProfileUsername"
+            app:srcCompat="@drawable/coin" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/gothic2"
-        android:text="Песен угадано:"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toBottomOf="@+id/profile_avatar" />
+        <TextView
+            android:id="@+id/textViewProfileScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:fontFamily="@font/garetheavy"
+            android:text="1500"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewProfileCoin"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewProfileCoin"
+            app:layout_constraintTop_toTopOf="@+id/imageViewProfileCoin" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/gothic2"
-        android:text="Песен не угадано:"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <TextView
+            android:id="@+id/textViewProfileTitlePlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gothic2"
+            android:text="Место в рейтинге:"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewProfilePlace"
+            app:layout_constraintStart_toStartOf="@+id/imageViewAvatarBackground"
+            app:layout_constraintTop_toTopOf="@+id/textViewProfilePlace" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/gothic2"
-        android:text="Место в рейтинге:"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <TextView
+            android:id="@+id/textViewProfilePlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/garetheavy"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textAlignment="center"
+            android:textColor="#FF9800"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewProfileCoin" />
 
-    <TextView
-        android:id="@+id/profile_correct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/garetheavy"
-        android:gravity="center_horizontal"
-        android:text="123"
-        android:textAlignment="center"
-        android:textColor="#FF9800"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="@+id/profile_wrong"
-        app:layout_constraintStart_toStartOf="@+id/profile_wrong"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        <ImageView
+            android:id="@+id/imageViewProfileCrown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="52dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewProfilePlace"
+            app:layout_constraintStart_toStartOf="@+id/textViewProfilePlace"
+            app:srcCompat="@drawable/crown" />
 
-    <TextView
-        android:id="@+id/profile_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/garetheavy"
-        android:gravity="center_horizontal"
-        android:text="1"
-        android:textAlignment="center"
-        android:textColor="#FF9800"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="@+id/profile_wrong"
-        app:layout_constraintStart_toStartOf="@+id/profile_wrong"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        <TextView
+            android:id="@+id/textViewProfileTitleCorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gothic2"
+            android:text="Песен угадано:"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewProfileCorrect"
+            app:layout_constraintStart_toStartOf="@+id/imageViewAvatarBackground"
+            app:layout_constraintTop_toTopOf="@+id/textViewProfileCorrect" />
 
-    <TextView
-        android:id="@+id/profile_wrong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/garetheavy"
-        android:gravity="center_horizontal"
-        android:text="33"
-        android:textAlignment="center"
-        android:textColor="#FF9800"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        <TextView
+            android:id="@+id/textViewProfileCorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/garetheavy"
+            android:gravity="center_horizontal"
+            android:text="123"
+            android:textAlignment="center"
+            android:textColor="#FF9800"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewProfilePlace"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProfileTitleOverall" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_score"
-        app:layout_constraintStart_toEndOf="@+id/profile_score"
-        app:layout_constraintTop_toTopOf="@+id/profile_score"
-        app:srcCompat="@drawable/coin" />
+        <TextView
+            android:id="@+id/textViewProfileTitleWrong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gothic2"
+            android:text="Песен не угадано:"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewProfileWrong"
+            app:layout_constraintStart_toStartOf="@+id/imageViewAvatarBackground"
+            app:layout_constraintTop_toTopOf="@+id/textViewProfileWrong" />
 
-    <ImageView
-        android:id="@+id/profile_crown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="52dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_place"
-        app:layout_constraintStart_toStartOf="@+id/profile_place"
-        app:srcCompat="@drawable/crown" />
+        <TextView
+            android:id="@+id/textViewProfileWrong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/garetheavy"
+            android:gravity="center_horizontal"
+            android:text="33"
+            android:textAlignment="center"
+            android:textColor="#FF9800"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewProfilePlace"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProfileCorrect" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewProfileTitleOverall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/garetheavy"
+            android:text="Общая статистика"
+            android:textColor="#FF9800"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProfilePlace" />
+
+        <TextView
+            android:id="@+id/textViewProfileTitleCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/garetheavy"
+            android:text="Статистика по категориям"
+            android:textColor="#FF9800"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewProfileWrong" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewProfileCategories"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewProfileTitleCategories"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingBottom="@dimen/_40sdp"
+            android:clipToPadding="false"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
