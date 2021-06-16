@@ -215,7 +215,6 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
         if (view.getId() != R.id.imageButtonPlayBack) {
-            postSongToPlayed();
             StaticData.answered = true;
         }
         if (view.getId() == R.id.imageViewPlaySongBackground1) {
@@ -251,6 +250,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         ImageView imageView = (ImageView) view;
         imageView.setImageResource(R.drawable.song_background_wrong);
         postUserData();
+        postSongToPlayed();
         MainActivity.playAnswerWrong();
         getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
     }
@@ -262,6 +262,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         ImageView imageView = (ImageView) view;
         imageView.setImageResource(R.drawable.song_background_correct);
         postUserData();
+        postSongToPlayed();
         MainActivity.playAnswerCorrect();
         getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
     }

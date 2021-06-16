@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     private static int soundIdButtonClick;
     private static int soundIdCorrect;
     private static int soundIdWrong;
+    private static int streamIdButtonClick;
+    private static int streamIdCorrect;
+    private static int streamIdWrong;
     private boolean isPlaying;
 
 
@@ -342,15 +345,15 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     }
 
     public static void playButtonClickSound() {
-        soundPool.play(soundIdButtonClick, 1, 1, 1, 0, 0);
+        streamIdButtonClick = soundPool.play(soundIdButtonClick, 1, 1, 1, 0, 0);
     }
 
     public static void playAnswerCorrect() {
-        soundPool.play(soundIdCorrect, 1, 1, 1, 0, 0);
+        streamIdCorrect = soundPool.play(soundIdCorrect, 1, 1, 1, 0, 0);
     }
 
     public static void playAnswerWrong() {
-        soundPool.play(soundIdWrong, 1, 1, 1, 0, 0);
+        streamIdWrong = soundPool.play(soundIdWrong, 1, 1, 1, 0, 0);
     }
 
     public static void playMainTheme(boolean play) {
@@ -363,11 +366,11 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
     }
 
     public static void stopPlayingSounds() {
-        soundPool.stop(soundIdCorrect);
-        soundPool.stop(soundIdWrong);
+        soundPool.stop(streamIdCorrect);
+        soundPool.stop(streamIdWrong);
     }
 
-    public static void loadSongs () {
+    public static void loadSongs() {
         NetworkUtils.ConnectGetTask getAllSongs = new NetworkUtils.ConnectGetTask();
         NetworkUtils.ConnectGetTask getPlayedSongs = new NetworkUtils.ConnectGetTask();
         JSONArray playedSongs = new JSONArray();
