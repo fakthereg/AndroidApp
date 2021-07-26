@@ -64,7 +64,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     private MediaPlayer mediaPlayer;
     private String stringUrlToSong;
     private boolean isPlaying = false;
-
+    private boolean mediaPlayerNeeded = true;
 
     public static FragmentPlay getInstance() {
         if (instance == null) {
@@ -172,11 +172,13 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                progressBarLoading.setVisibility(View.INVISIBLE);
-                textViewTimer.setVisibility(View.VISIBLE);
-                timer.start();
-                mp.start();
-                isPlaying = true;
+                if (mediaPlayerNeeded) {
+                    progressBarLoading.setVisibility(View.INVISIBLE);
+                    textViewTimer.setVisibility(View.VISIBLE);
+                    timer.start();
+                    mp.start();
+                    isPlaying = true;
+                }
             }
         });
     }
@@ -200,7 +202,6 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
                 titles.get(i).setText(allSongs.getJSONObject(wrongIndex).getString("title"));
             }
         }
-
     }
 
 
@@ -209,8 +210,10 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         MainActivity.playButtonClickSound();
         timer.cancel();
         mediaPlayer.stop();
+        mediaPlayer.release();
         isPlaying = false;
         if (view.getId() == R.id.imageButtonPlayBack) {
+            mediaPlayerNeeded = false;
             MainActivity.playMainTheme(true);
             getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
@@ -295,7 +298,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        if (mediaPlayer.isPlaying() && isPlaying){
+        if (mediaPlayer.isPlaying() && isPlaying) {
             mediaPlayer.pause();
         }
         //TODO остановка таймера и музыки при блокировке экрана. Swing timer например, или нафиг это все
@@ -304,7 +307,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        if (isPlaying){
+        if (isPlaying) {
             mediaPlayer.start();
         }
     }

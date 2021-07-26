@@ -76,7 +76,6 @@ public class User {
     public static int getAvatarResourceId(int avatarId) {
         switch (avatarId) {
             case 1:
-
                 return R.drawable.avatar1;
 
             case 2:
