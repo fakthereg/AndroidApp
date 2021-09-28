@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.k1d.wave.MainActivity;
 import com.k1d.wave.R;
 import com.k1d.wave.StaticData;
 import com.k1d.wave.User;

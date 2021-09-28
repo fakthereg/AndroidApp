@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,16 +12,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.k1d.wave.MainActivity;
-import com.k1d.wave.User;
-import com.k1d.wave.utils.NetworkUtils;
 import com.k1d.wave.R;
 import com.k1d.wave.StaticData;
 import com.k1d.wave.ui.main.adapters.CategoryAdapter;
-
-import org.json.JSONArray;
-
 import java.util.HashMap;
 
 public class FragmentCategory extends Fragment {
@@ -70,7 +63,7 @@ public class FragmentCategory extends Fragment {
                 StaticData.chosenCategory = position;
                 if (StaticData.getSongsNotPlayedInCategory(position).length() > 0) {
                     MainActivity.playMainTheme(false);
-                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.container, new FragmentPlay()).addToBackStack(null).show(FragmentPlay.getInstance()).commit();
                 } else {

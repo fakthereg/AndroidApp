@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.k1d.wave.MainActivity;
@@ -21,6 +22,7 @@ import com.k1d.wave.User;
 public class FragmentAnswer extends Fragment implements View.OnClickListener {
 
     private static FragmentAnswer instance;
+    private FragmentManager fragmentManager;
 
     private TextView textViewCategory;
     private TextView textViewUsername;
@@ -45,6 +47,7 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_answer, container, false);
+        fragmentManager = getActivity().getSupportFragmentManager();
         textViewCategory = view.findViewById(R.id.textViewAnswerCategory);
         textViewUsername = view.findViewById(R.id.textViewAnswerUsername);
         textViewScore = view.findViewById(R.id.textViewAnswerScore);
@@ -122,10 +125,10 @@ public class FragmentAnswer extends Fragment implements View.OnClickListener {
         MainActivity.stopPlayingSounds();
         MainActivity.playButtonClickSound();
         if (v.getId() == R.id.imageButtonAnswerNext && StaticData.songsLeftInChosenCategory > 1) {
-            getFragmentManager().beginTransaction().replace(R.id.container, new FragmentPlay()).commit();
+            fragmentManager.beginTransaction().replace(R.id.container, new FragmentPlay()).commit();
         } else {
             MainActivity.playMainTheme(true);
-            getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
+            fragmentManager.beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
     }
 }

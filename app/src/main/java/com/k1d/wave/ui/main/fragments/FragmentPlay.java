@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.k1d.wave.MainActivity;
 import com.k1d.wave.R;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 public class FragmentPlay extends Fragment implements View.OnClickListener {
 
     private static FragmentPlay instance;
+    private FragmentManager fragmentManager;
 
     private ImageView imageViewAvatar;
     private TextView textViewUsername;
@@ -57,7 +59,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     ArrayList<TextView> artists = new ArrayList<>();
     ArrayList<TextView> titles = new ArrayList<>();
     ArrayList<ImageView> backgrounds = new ArrayList<>();
-    CountDownTimer timer;
+    private CountDownTimer timer;
     private TextView textViewTimer;
     private ProgressBar progressBarLoading;
 
@@ -76,6 +78,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_play, container, false);
+        fragmentManager = getActivity().getSupportFragmentManager();
         imageViewAvatar = view.findViewById(R.id.imageViewPlayAvatar);
         textViewUsername = view.findViewById(R.id.textViewPlayUsername);
         textViewScore = view.findViewById(R.id.textViewPlayScore);
@@ -150,7 +153,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
                 mediaPlayer.stop();
                 isPlaying = false;
                 postSongToPlayed();
-                getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
+                fragmentManager.beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
             }
         };
 
@@ -162,7 +165,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(stringUrlToSong);
-            Log.i("mytag", "mediaplayer data source set to " + stringUrlToSong);
+            Log.i("mytag", "mediaPlayer data source set to " + stringUrlToSong);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -215,7 +218,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         if (view.getId() == R.id.imageButtonPlayBack) {
             mediaPlayerNeeded = false;
             MainActivity.playMainTheme(true);
-            getFragmentManager().beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
+            fragmentManager.beginTransaction().replace(R.id.container, FragmentPanels.getInstance()).replace(R.id.panels_container, new FragmentCategory()).commit();
         }
         if (view.getId() != R.id.imageButtonPlayBack) {
             StaticData.answered = true;
@@ -255,7 +258,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         postUserData();
         postSongToPlayed();
         MainActivity.playAnswerWrong();
-        getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
     }
 
     private void answerCorrect(View view) {
@@ -267,7 +270,7 @@ public class FragmentPlay extends Fragment implements View.OnClickListener {
         postUserData();
         postSongToPlayed();
         MainActivity.playAnswerCorrect();
-        getFragmentManager().beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, new FragmentAnswer()).commit();
     }
 
     private void postUserData() {

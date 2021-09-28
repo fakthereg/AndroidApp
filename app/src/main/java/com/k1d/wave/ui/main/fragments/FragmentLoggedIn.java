@@ -27,8 +27,8 @@ public class FragmentLoggedIn extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_logged_in, container, false);
-        ImageView avatar = (ImageView) view.findViewById(R.id.logged_in_avatar);
-        TextView hello_username = (TextView) view.findViewById(R.id.logged_in_hello);
+        ImageView avatar = view.findViewById(R.id.logged_in_avatar);
+        TextView hello_username = view.findViewById(R.id.logged_in_hello);
         String settext = "Привет, " + User.name.substring(0, 1).toUpperCase() + User.name.substring(1) + "!";
         avatar.setImageResource(User.avatar);
         hello_username.setText(settext);

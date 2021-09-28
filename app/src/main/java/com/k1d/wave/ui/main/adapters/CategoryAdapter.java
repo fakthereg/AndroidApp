@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.k1d.wave.R;
@@ -16,7 +15,7 @@ import java.util.HashMap;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    HashMap<Integer, Integer> categories = new HashMap<>();
+    HashMap<Integer, Integer> categories;
     HashMap<Integer, Integer> categories_bw = new HashMap<>();
     private OnCategoryClickListener onCategoryClickListener;
 

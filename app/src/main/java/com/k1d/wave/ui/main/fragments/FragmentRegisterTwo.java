@@ -24,7 +24,7 @@ public class FragmentRegisterTwo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_two, container, false);
-        TextView hello_username = (TextView) view.findViewById(R.id.register2_header);
+        TextView hello_username = view.findViewById(R.id.register2_header);
         String settext = "Привет, " + User.name;
         hello_username.setText(settext);
         return view;

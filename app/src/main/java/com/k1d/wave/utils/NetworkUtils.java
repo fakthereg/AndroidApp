@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.k1d.wave.StaticData;
 import com.k1d.wave.User;
 
 import org.json.JSONArray;
@@ -151,6 +152,35 @@ public class NetworkUtils {
                 }
             }
             return jsonArray;
+        }
+    }
+    public static class GetUserScoresTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            URL url = null;
+            HttpURLConnection urlConnection = null;
+            StringBuilder result = new StringBuilder();
+            try {
+                url = new URL(StaticData.URL_GET_USER_SCORES);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                InputStream inputStream = urlConnection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = reader.readLine();
+                while (line != null) {
+                    result.append(line);
+                    line = reader.readLine();
+                }
+                Log.i("mytag", "url = " + url.toString() + "\nresult = " + result.toString());
+                return result.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+            return null;
         }
     }
 

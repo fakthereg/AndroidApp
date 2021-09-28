@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#00FFFFFF">
 
-    <LinearLayout
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/panels_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +14,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-    </LinearLayout>
+    </androidx.fragment.app.FragmentContainerView>
 
     <ImageButton
         android:id="@+id/bottom_panel_profile"

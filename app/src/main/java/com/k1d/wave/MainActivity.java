@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity /*implements WampInterface*/
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
 
-            ArrayList<String> request_perm = new ArrayList<String>();
+            ArrayList<String> request_perm = new ArrayList<>();
 
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {

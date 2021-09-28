@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/NewApp/app/src/main/res/layout/category_item.xml" value="0.33177083333333335" />
+        <entry key="..\:/NewApp/app/src/main/res/layout/container.xml" value="0.5541666666666667" />
+        <entry key="..\:/NewApp/app/src/main/res/layout/fragment_panels.xml" value="0.529891304347826" />
+        <entry key="..\:/NewApp/app/src/main/res/layout/fragment_play.xml" value="0.33177083333333335" />
+        <entry key="..\:/NewApp/app/src/main/res/layout/fragment_register_two.xml" value="0.33177083333333335" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
